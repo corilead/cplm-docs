@@ -1,10 +1,8 @@
 ---
 title: "开发环境配置"
-metaTitle: "Syntax Highlighting is the meta title tag for this page"
-metaDescription: "This is the meta description for this page"
+sidebar: Docs
+showTitle: true
 ---
-# 开发环境配置
-
 ## 基础开发环境配置
 
 ### 安装和配置Git客户端
