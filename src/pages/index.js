@@ -35,7 +35,7 @@ const IndexPage = () => {
             type="primary"
             size="large"
             icon="github"
-            href="https://github.com/cvluca/gatsby-starter-markdown"
+            href="https://github.com/corilead/cplm-docs"
           >
             Github
           </Button>
