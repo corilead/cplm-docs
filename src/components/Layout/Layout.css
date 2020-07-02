@@ -183,7 +183,6 @@ textarea {
   font: inherit;
 }
 html {
-  font: 112.5%/1.45em georgia, serif;
   box-sizing: border-box;
   overflow-y: scroll;
 }
@@ -198,7 +197,7 @@ html {
 }
 body {
   color: hsla(0, 0%, 0%, 0.8);
-  font-family: georgia, serif;
+  font-family: -apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji;
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;
