@@ -1,6 +1,7 @@
 module.exports = {
+  pathPrefix: "/cplm-docs",
   siteMetadata: {
-    title: 'Gatsby Markdown Starter',
+    title: 'CPLM',
   },
   plugins: [
     'gatsby-plugin-react-helmet',

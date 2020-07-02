@@ -39,15 +39,15 @@
     "start": "npm run develop",
     "format": "prettier --write \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public -r https://$GH_TOKEN@github.com/corilead/cplm-docs.git"
   },
   "devDependencies": {
-    "gh-pages": "^2.1.1",
-    "mem": "^5.1.1",
-    "prettier": "^1.18.2",
-    "minimist": ">=1.2.3",
     "acorn": ">=6.4.1",
-    "kind-of": ">=6.0.3"
+    "gh-pages": "^2.2.0",
+    "kind-of": ">=6.0.3",
+    "mem": "^5.1.1",
+    "minimist": ">=1.2.3",
+    "prettier": "^1.18.2"
   },
   "repository": {
     "type": "git",
