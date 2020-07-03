@@ -17,9 +17,9 @@ const IndexPage = () => {
               fontWeight: 'bold',
             }}
           >
-            Gatsby Markdown Starter
+            CPLM Docs
           </p>
-          <h2>Boilerplate for markdown-based website</h2>
+          <h2>markdown-based website</h2>
           <br />
           <Link to="/docs/get-started/introduction">
             <Button
@@ -28,7 +28,7 @@ const IndexPage = () => {
               icon="right-circle"
               style={{ marginRight: 10 }}
             >
-              Get Started
+              快速开始
             </Button>
           </Link>
           <Button
