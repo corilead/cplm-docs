@@ -3,16 +3,17 @@
     "entry": "Docs",
     "name": "Docs",
     "child_entries": [
-      "Get Started",
+      "开始使用",
       "Guide"
     ]
   },
   {
-    "entry": "Get Started",
-    "name": "Get Started",
+    "entry": "开始使用",
+    "name": "开始使用",
     "items": [
       "docs/get-started/introduction",
-      "docs/get-started/quick-start"
+      "docs/get-started/quick-start",
+      "docs/get-started/test"
     ]
   },
   {
