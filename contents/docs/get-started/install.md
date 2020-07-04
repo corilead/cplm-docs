@@ -10,6 +10,16 @@ showTitle: true
 - 安装Java SDK 8
 - 安装Apache Maven 3
 
+### 创建操作系统用户
+以root用户登录创建用户，并设置用户密码
+```
+echo 'cplm ALL=(ALL) ALL' >> /etc/sudoers
+groupadd cinstall
+useradd -g cinstall cplm
+passwd cplm
+```
+注意：以下操作如无特殊说明，均以cplm用户操作。
+
 
 ## 安装和配置RabbitMQ
 ### 前提条件
@@ -34,7 +44,7 @@ sudo service rabbitmq-server restart
 访问[http://localhost:15672](http://localhost:15672)，使用默认用户guest/guest登录。
 
 ### 创建用户
-创建cplm用户并设置权限
+创建rabbitmq用户并设置权限
 ```bash
 rabbitmqctl add_user cplm password
 rabbitmqctl set_user_tags cplm administrator
@@ -105,10 +115,15 @@ PONG
 
 ## 安装和配置ElasticSearch
 ### 前提条件
-- 下载[ElasticSearch 6.4.3](https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz)
+- 下载[ElasticSearch 6.4.3](https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.rpm)
 - 下载[Kibana 6.4.3](https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz)
 
-### 安装ElasticSearch
+### 安装ElasticSearch(RPM模式)
+```
+sudo rpm --install elasticsearch-7.6.2-x86_64.rpm
+sudo chkconfig --add elasticsearch
+sudo -i service elasticsearch start
+```
 
 ### 启用ElasticSearch认证
 
@@ -119,6 +134,40 @@ PONG
 
 ## 安装和配置MongoDB
 ### 前提条件
+- 下载[MongoDB 4.2.8](https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz)
+
+### 安装MongoDB
+```bash
+tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz
+sudo cp /path/to/the/mongodb-directory/bin/* /usr/local/bin/
+sudo ln -s  /path/to/the/mongodb-directory/bin/* /usr/local/bin/
+
+sudo mkdir -p /var/lib/mongo
+sudo mkdir -p /var/log/mongodb
+sudo chown -R mongod:mongod /var/lib/mongo
+sudo chown -R mongod:mongod /var/log/mongodb
+```
+
+## 安装和配置Nginx
+### 前提条件
+- 下载[Nginx 1.18.0](https://nginx.org/download/nginx-1.18.0.tar.gz)
+- 下载[PCRE](ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.44.tar.gz)
+- 下载[zlib](http://zlib.net/zlib-1.2.11.tar.gz)
+- 下载[OpenSSL](http://www.openssl.org/source/openssl-1.1.1g.tar.gz)
+```
+wget https://nginx.org/download/nginx-1.18.0.tar.gz
+wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.44.tar.gz
+wget http://zlib.net/zlib-1.2.11.tar.gz
+wget wget http://www.openssl.org/source/openssl-1.1.1g.tar.gz
+```
+
+### 安装依赖软件
+
+### 安装Nginx
+```
+tar zxf nginx-1.18.0.tar.gz
+cd nginx-1.18.0
+```
 
 ## 安装和配置MySQL
 ### 前提条件
@@ -126,3 +175,29 @@ PONG
 
 ### 安装MySQL
 
+
+## 安装和配置达梦
+### 前提条件
+
+### 创建用户和组
+使用root用户登录创建数据库安装用户
+```
+groupadd dinstall
+useradd -g dinstall -m -d /home/dmdba -s /bin/bash dmdba
+echo 'dmdba ALL=(ALL) ALL' >> /etc/sudoers
+
+passwd dmdba
+```
+
+### 安装数据库
+使用上一步创建新建的用户登录，执行数据库安装
+```
+mkdir /mnt/cdrom
+mount /dev/cdrom /mnt/cdrom
+chmod a+rx dmdbms-8.2-1.x86_64.rpm
+sudo rpm -ivh dmdbms-8.2-1.x86_64.rpm
+```
+
+```
+sudo ./dminit PATH=/var/dmdbms PAGE_SIZE=16
+```
