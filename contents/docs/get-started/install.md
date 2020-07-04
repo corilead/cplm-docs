@@ -13,8 +13,8 @@ showTitle: true
 
 ## 安装和配置RabbitMQ
 ### 前提条件
-- 下载erlang安装文件[erlang-23.0.2-1.el7.x86_64.rpm](https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm)
-- 下载RabbitMQ安装文件[rabbitmq-server-3.8.5-1.el7.noarch.rpm](https://packagecloud.io/rabbitmq/rabbitmq-server/packages/el/7/rabbitmq-server-3.8.5-1.el7.noarch.rpm)
+- 下载[erlang 23.0.2](https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm)
+- 下载[RabbitMQ 3.8.5](https://packagecloud.io/rabbitmq/rabbitmq-server/packages/el/7/rabbitmq-server-3.8.5-1.el7.noarch.rpm)
 
 ### 安装RabbitMQ
 ```
@@ -49,12 +49,12 @@ rabbitmqctl delete_user guest
 
 ## 安装和配置Redis
 ### 前提条件
-- 下载Redis安装文件[redis-stable.tar.gz](http://download.redis.io/redis-stable.tar.gz)
+- 下载[Redis 5.0.8](http://download.redis.io/releases/redis-5.0.8.tar.gz)
 
 ### 安装Redis
 ```
-tar xvzf redis-stable.tar.gz
-cd redis-stable
+tar xvzf redis-5.0.8.tar.gz
+cd redis-5.0.8
 sudo make install MALLOC=libc
 
 sudo mkdir /etc/redis
@@ -63,7 +63,6 @@ sudo mkdir /var/redis/6379
 sudo cp utils/redis_init_script /etc/init.d/redis_6379
 sudo cp redis.conf /etc/redis/6379.conf
 ```
-
 
 ### 修改Redis配置文件
 - 取消绑定本机IP
@@ -106,8 +105,8 @@ PONG
 
 ## 安装和配置ElasticSearch
 ### 前提条件
-- 下载ElasticSearch 6.4.3
-- 下载Kibana 6.4.3
+- 下载[ElasticSearch 6.4.3](https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz)
+- 下载[Kibana 6.4.3](https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz)
 
 ### 安装ElasticSearch
 
