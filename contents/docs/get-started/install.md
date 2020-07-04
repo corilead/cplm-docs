@@ -13,21 +13,21 @@ showTitle: true
 
 ## 安装和配置RabbitMQ
 ### 前提条件
-- 下载erlang安装文件erlang-22.1.8-1.el7.x86_64.rpm
-- 下载RabbitMQ安装文件rabbitmq-server-3.8.2-1.el7.noarch.rpm
+- 下载erlang安装文件[erlang-23.0.2-1.el7.x86_64.rpm](https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm)
+- 下载RabbitMQ安装文件[rabbitmq-server-3.8.5-1.el7.noarch.rpm](https://packagecloud.io/rabbitmq/rabbitmq-server/packages/el/7/rabbitmq-server-3.8.5-1.el7.noarch.rpm)
 
 ### 安装RabbitMQ
 ```
-sudo chmod +x erlang-22.1.8-1.el7.x86_64.rpm
-sudo yum -y install erlang-22.1.8-1.el7.x86_64.rpm
-sudo chmod +x rabbitmq-server-3.8.2-1.el7.noarch.rpm
-sudo yum -y install rabbitmq-server-3.8.2-1.el7.noarch.rpm
+sudo chmod +x erlang-23.0.2-1.el7.x86_64.rpm
+sudo yum -y install erlang-23.0.2-1.el7.x86_64.rpm
+sudo chmod +x rabbitmq-server-3.8.5-1.el7.noarch.rpm
+sudo yum -y install rabbitmq-server-3.8.5-1.el7.noarch.rpm
 sudo service rabbitmq-server start
 ```
 
 ### 启用管理控制台
 ```
-cd /usr/lib/rabbitmq/lib/rabbitmq_server-3.8.2/ebin
+cd /usr/lib/rabbitmq/lib/rabbitmq_server-3.8.5/ebin
 sudo rabbitmq-plugins enable rabbitmq_management
 sudo service rabbitmq-server restart
 ```
