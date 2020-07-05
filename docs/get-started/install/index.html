@@ -265,17 +265,31 @@ sudo systemctl start elasticsearch
 </ul>
 <h4 id="安装mongodb" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85mongodb" aria-label="安装mongodb permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装MongoDB</h4>
 <pre><code class="language-bash">sudo tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz -C /usr/local
-sudo mv mongodb-linux-x86_64-rhel70-4.2.8 mongodb
-sudo chown -R cplm: mongodb
+sudo mv /usr/local/mongodb-linux-x86_64-rhel70-4.2.8 /usr/local/mongodb
+sudo chown -R cplm: /usr/local/mongodb
 
-sudo mkdir -p /var/lib/mongo
+sudo mkdir -p /var/lib/mongodb
 sudo mkdir -p /var/log/mongodb
-sudo chown -R cplm: /var/lib/mongo
+sudo chown -R cplm: /var/lib/mongodb
 sudo chown -R cplm: /var/log/mongodb
+</code></pre>
+<h4 id="修改配置" style="position:relative;"><a href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE" aria-label="修改配置 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>修改配置</h4>
+<p>新建文件/usr/local/etc/mongod.conf</p>
+<pre><code class="language-bash">sudo vi /usr/local/etc/mongod.conf
+</code></pre>
+<p>文件内容如下：</p>
+<pre><code>systemLog:
+  destination: file
+  path: /var/log/mongodb/mongo.log
+  logAppend: true
+storage:
+  dbPath: /var/lib/mongodb
+net:
+  bindIp: 127.0.0.1
 </code></pre>
 <h4 id="启动服务-1" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-1" aria-label="启动服务 1 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动服务</h4>
 <p>新建systemd文件/usr/lib/systemd/system/mongodb.service</p>
-<pre><code>sudo vi /usr/lib/systemd/system/mongodb.service
+<pre><code class="language-bash">sudo vi /usr/lib/systemd/system/mongodb.service
 </code></pre>
 <p>文件内容如下</p>
 <pre><code>[Unit]
@@ -286,7 +300,7 @@ After=network.target
 [Service]
 Type=forking
 PIDFile=/var/run/mongodb/mongod.pid
-ExecStart=/usr/local/bin/mongod --config /etc/mongod.conf
+ExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/etc/mongod.conf
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 User=cplm
