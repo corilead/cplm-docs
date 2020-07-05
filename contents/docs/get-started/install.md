@@ -150,8 +150,9 @@ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar
 #### 安装ElasticSearch
 安装ElasticSearch
 ```
-tar -xzf elasticsearch-6.4.3.tar.gz
-cd elasticsearch-6.4.3
+sudo tar -xzf elasticsearch-6.4.3.tar.gz -C /usr/local
+sudo mv /usr/local/elasticsearch-6.4.3 /usr/local/elasticsearch
+sudo chown cplm: /usr/local/elasticsearch
 ```
 启动ElasticSearch
 ```
@@ -159,6 +160,74 @@ cd elasticsearch-6.4.3
 ```
 
 #### 启用ElasticSearch认证
+
+#### 启动ElasticSearch
+新建systemd文件/lib/systemd/system/elasticsearch.service
+```
+[Unit]
+Description=Elasticsearch
+Documentation=https://www.elastic.co
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+PrivateTmp=true
+Environment=ES_HOME=/usr/local/elasticsearch
+Environment=ES_PATH_CONF=${path.conf}
+Environment=PID_DIR=/var/run/elasticsearch
+Environment=ES_SD_NOTIFY=true
+EnvironmentFile=-${path.env}
+
+WorkingDirectory=/usr/local/elasticsearch
+
+User=cplm
+
+ExecStart=/usr/local/elasticsearch/bin/systemd-entrypoint -p ${PID_DIR}/elasticsearch.pid --quiet
+
+# StandardOutput is configured to redirect to journalctl since
+# some error messages may be logged in standard output before
+# elasticsearch logging system is initialized. Elasticsearch
+# stores its logs in /var/log/elasticsearch and does not use
+# journalctl by default. If you also want to enable journalctl
+# logging, you can simply remove the "quiet" option from ExecStart.
+StandardOutput=journal
+StandardError=inherit
+
+# Specifies the maximum file descriptor number that can be opened by this process
+LimitNOFILE=65535
+
+# Specifies the maximum number of processes
+LimitNPROC=4096
+
+# Specifies the maximum size of virtual memory
+LimitAS=infinity
+
+# Specifies the maximum file size
+LimitFSIZE=infinity
+
+# Disable timeout logic and wait until process is stopped
+TimeoutStopSec=0
+
+# SIGTERM signal is used to stop the Java process
+KillSignal=SIGTERM
+
+# Send the signal only to the JVM rather than its control group
+KillMode=process
+
+# Java process is never killed
+SendSIGKILL=no
+
+# When a JVM receives a SIGTERM signal it exits with code 143
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+```
+启动服务
+```
+sudo systemctl start elasticsearch.service
+```
 
 #### 安装Kibana
 
@@ -175,20 +244,40 @@ cd elasticsearch-6.4.3
 #### 下载软件
 - 下载[MongoDB 4.2.8](https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz)
 ```
-cd ~
 wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz
 ```
 
 #### 安装MongoDB
 ```bash
 tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz
-sudo cp /path/to/the/mongodb-directory/bin/* /usr/local/bin/
-sudo ln -s  /path/to/the/mongodb-directory/bin/* /usr/local/bin/
+sudo cp mongodb-linux-x86_64-rhel70-4.2.8/bin/* /usr/local/bin/
 
 sudo mkdir -p /var/lib/mongo
 sudo mkdir -p /var/log/mongodb
-sudo chown -R mongod:mongod /var/lib/mongo
-sudo chown -R mongod:mongod /var/log/mongodb
+sudo chown -R cplm: /var/lib/mongo
+sudo chown -R cplm: /var/log/mongodb
+```
+
+#### 启动服务
+新建systemd文件
+```
+[Unit]
+Description=MongoDB Database Service
+Wants=network.target
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/mongodb/mongod.pid
+ExecStart=/usr/local/bin/mongod --config /etc/mongod.conf
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+User=cplm
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
 ```
 
 ### 安装和配置Nginx
@@ -237,8 +326,39 @@ sudo make install
 ```
 tar zxf nginx-1.18.0.tar.gz
 cd nginx-1.18.0
-./configure --sbin-path=/usr/local/nginx/nginx --conf-path=/usr/local/nginx/nginx.conf --pid-path=/usr/local/nginx/nginx.pid --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1.g --with-http_ssl_module --with-stream
+./configure --prefix==/usr/local/nginx --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1g --with-http_ssl_module --with-stream
+make
+sudo make install
 ```
+
+### 注册服务
+新建systemd文件/lib/systemd/system/nginx.service
+```
+[Unit]
+Description=The NGINX HTTP and reverse proxy server
+After=syslog.target network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+PIDFile=/run/nginx.pid
+ExecStartPre=/usr/sbin/nginx -t
+ExecStart=/usr/sbin/nginx
+ExecReload=/usr/sbin/nginx -s reload
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+#### 启动服务
+```
+sudo /usr/local/nginx/sbin/nginx
+```
+
+#### 检查运行状态
+访问[http://localhost](http://localhost)，页面显示“Welcome to nginx!”。
+
 
 ### 安装和配置MySQL
 #### 下载软件
