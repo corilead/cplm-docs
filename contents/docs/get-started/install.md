@@ -151,13 +151,7 @@ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar
 ```
 sudo tar -xzf elasticsearch-6.4.3.tar.gz -C /usr/local
 sudo mv /usr/local/elasticsearch-6.4.3 /usr/local/elasticsearch
-sudo mkdir -p /var/run/elasticsearch
 sudo chown -R cplm: /usr/local/elasticsearch
-sudo chown -R cplm: /var/run/elasticsearch
-```
-启动ElasticSearch
-```
-./bin/elasticsearch -d -p pid
 ```
 
 #### 启用ElasticSearch认证
@@ -255,8 +249,9 @@ wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz
 
 #### 安装MongoDB
 ```bash
-tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz
-sudo cp mongodb-linux-x86_64-rhel70-4.2.8/bin/* /usr/local/bin/
+sudo tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz -C /usr/local
+sudo mv mongodb-linux-x86_64-rhel70-4.2.8 mongodb
+sudo chown -R cplm: mongodb
 
 sudo mkdir -p /var/lib/mongo
 sudo mkdir -p /var/log/mongodb
@@ -293,7 +288,6 @@ WantedBy=multi-user.target
 - 下载[OpenSSL](http://www.openssl.org/source/openssl-1.1.1g.tar.gz)
 - 下载[Nginx 1.18.0](https://nginx.org/download/nginx-1.18.0.tar.gz)
 ```
-cd ~
 wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz
 wget http://zlib.net/zlib-1.2.11.tar.gz
 wget http://www.openssl.org/source/openssl-1.1.1g.tar.gz
@@ -340,6 +334,11 @@ sudo make install
 ### 注册服务
 新建systemd文件/lib/systemd/system/nginx.service
 ```
+sudo vi /lib/systemd/system/nginx.service
+```
+
+文件内容如下
+```
 [Unit]
 Description=The NGINX HTTP and reverse proxy server
 After=syslog.target network-online.target remote-fs.target nss-lookup.target
@@ -347,9 +346,8 @@ Wants=network-online.target
 
 [Service]
 Type=forking
-PIDFile=/run/nginx.pid
-ExecStartPre=/usr/sbin/nginx -t
-ExecStart=/usr/sbin/nginx
+ExecStartPre=/usr/local/nginx/sbin/nginx -t
+ExecStart=/usr/local/nginx/sbin/nginx
 ExecReload=/usr/sbin/nginx -s reload
 ExecStop=/bin/kill -s QUIT $MAINPID
 PrivateTmp=true
@@ -357,9 +355,12 @@ PrivateTmp=true
 [Install]
 WantedBy=multi-user.target
 ```
+
 #### 启动服务
 ```
-sudo /usr/local/nginx/sbin/nginx
+sudo systemctl daemon-reload
+sudo systemctl enable nginx
+sudo systemctl start nginx
 ```
 
 #### 检查运行状态
