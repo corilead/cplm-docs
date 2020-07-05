@@ -42,6 +42,7 @@ cplm              soft    stack   10240
 wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm
 ```
+
 #### 安装RabbitMQ
 ```
 sudo chmod +x erlang-23.0.2-1.el7.x86_64.rpm
