@@ -250,18 +250,36 @@ wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz
 #### 安装MongoDB
 ```bash
 sudo tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz -C /usr/local
-sudo mv mongodb-linux-x86_64-rhel70-4.2.8 mongodb
-sudo chown -R cplm: mongodb
+sudo mv /usr/local/mongodb-linux-x86_64-rhel70-4.2.8 /usr/local/mongodb
+sudo chown -R cplm: /usr/local/mongodb
 
-sudo mkdir -p /var/lib/mongo
+sudo mkdir -p /var/lib/mongodb
 sudo mkdir -p /var/log/mongodb
-sudo chown -R cplm: /var/lib/mongo
+sudo chown -R cplm: /var/lib/mongodb
 sudo chown -R cplm: /var/log/mongodb
+```
+
+#### 修改配置
+新建文件/usr/local/etc/mongod.conf
+```bash
+sudo vi /usr/local/etc/mongod.conf
+```
+
+文件内容如下：
+```
+systemLog:
+  destination: file
+  path: /var/log/mongodb/mongo.log
+  logAppend: true
+storage:
+  dbPath: /var/lib/mongodb
+net:
+  bindIp: 127.0.0.1
 ```
 
 #### 启动服务
 新建systemd文件/usr/lib/systemd/system/mongodb.service
-```
+```bash
 sudo vi /usr/lib/systemd/system/mongodb.service
 ```
 
@@ -275,7 +293,7 @@ After=network.target
 [Service]
 Type=forking
 PIDFile=/var/run/mongodb/mongod.pid
-ExecStart=/usr/local/bin/mongod --config /etc/mongod.conf
+ExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/etc/mongod.conf
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 User=cplm
