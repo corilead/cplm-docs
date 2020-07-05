@@ -259,7 +259,7 @@ sudo chown -R cplm: /var/log/mongodb
 ```
 
 #### 启动服务
-新建systemd文件
+新建systemd文件/lib/systemd/system/mongodb.service
 ```
 [Unit]
 Description=MongoDB Database Service
