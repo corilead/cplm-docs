@@ -39,7 +39,6 @@ cplm              soft    stack   10240
 - 下载[erlang 23.0.2](https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm)
 - 下载[RabbitMQ 3.8.5](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm)
 ```
-cd ~
 wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm
 ```
@@ -80,14 +79,13 @@ sudo rabbitmqctl delete_user guest
 #### 下载软件
 - 下载[Redis 5.0.8](http://download.redis.io/releases/redis-5.0.8.tar.gz)
 ```
-cd ~
 wget http://download.redis.io/releases/redis-5.0.8.tar.gz
 ```
 
 #### 安装Redis
 ```
-tar xvzf redis-5.0.8.tar.gz
-cd redis-5.0.8
+tar xvzf redis-*.tar.gz
+cd redis-*
 sudo make install MALLOC=libc
 
 sudo mkdir /etc/redis
@@ -166,27 +164,37 @@ sudo vi /usr/lib/systemd/system/elasticsearch.service
 ```
 [Unit]
 Description=Elasticsearch
-Documentation=https://www.elastic.co
+Documentation=http://www.elastic.co
 Wants=network-online.target
 After=network-online.target
 
 [Service]
-Type=notify
+RuntimeDirectory=elasticsearch
 PrivateTmp=true
 Environment=ES_HOME=/usr/local/elasticsearch
-Environment=ES_PATH_CONF=${path.conf}
-Environment=PID_DIR=${ES_HOME}
-Environment=ES_SD_NOTIFY=true
-EnvironmentFile=-${path.env}
+Environment=ES_PATH_CONF=/usr/local/elasticsearch/conf
+Environment=PID_DIR=/usr/local/elasticsearch/logs
+EnvironmentFile=-/etc/sysconfig/elasticsearch
 
 WorkingDirectory=/usr/local/elasticsearch
 
 User=cplm
 
-ExecStart=/usr/local/elasticsearch/bin/systemd-entrypoint -d -p ${PID_DIR}/elasticsearch.pid
+ExecStart=/usr/share/elasticsearch/bin/elasticsearch -p ${PID_DIR}/elasticsearch
+.pid --quiet
 
-# Specifies the maximum file descriptor number that can be opened by this process
-LimitNOFILE=65535
+# StandardOutput is configured to redirect to journalctl since
+# some error messages may be logged in standard output before
+# elasticsearch logging system is initialized. Elasticsearch
+# stores its logs in /var/log/elasticsearch and does not use
+# journalctl by default. If you also want to enable journalctl
+# logging, you can simply remove the "quiet" option from ExecStart.
+StandardOutput=journal
+StandardError=inherit
+
+# Specifies the maximum file descriptor number that can be opened by this proces
+s
+LimitNOFILE=65536
 
 # Specifies the maximum number of processes
 LimitNPROC=4096
@@ -249,8 +257,8 @@ wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz
 
 #### 安装MongoDB
 ```bash
-sudo tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz -C /usr/local
-sudo mv /usr/local/mongodb-linux-x86_64-rhel70-4.2.8 /usr/local/mongodb
+sudo tar -zxvf mongodb-linux-*.tgz -C /usr/local
+sudo mv /usr/local/mongodb-* /usr/local/mongodb
 sudo chown -R cplm: /usr/local/mongodb
 
 sudo mkdir -p /var/lib/mongodb
@@ -277,7 +285,7 @@ net:
   bindIp: 127.0.0.1
 ```
 
-#### 启动服务
+#### 注册服务
 新建systemd文件/usr/lib/systemd/system/mongodb.service
 ```bash
 sudo vi /usr/lib/systemd/system/mongodb.service
@@ -293,7 +301,7 @@ After=network.target
 [Service]
 Type=forking
 PIDFile=/var/run/mongodb/mongod.pid
-ExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/etc/mongod.conf
+ExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/etc/mongod.conf --fork
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 User=cplm
@@ -302,6 +310,13 @@ StandardError=syslog
 
 [Install]
 WantedBy=multi-user.target
+```
+
+#### 启动服务
+```
+sudo systemctl daemon-reload
+sudo systemctl enable mongodb
+sudo systemctl start mongodb
 ```
 
 ### 安装和配置Nginx
@@ -320,8 +335,8 @@ wget https://nginx.org/download/nginx-1.18.0.tar.gz
 #### 安装依赖软件
 安装PCER
 ```
-tar -zxf pcre-8.44.tar.gz
-cd pcre-8.44
+tar -zxf pcre-*.tar.gz
+cd pcre-*
 ./configure
 make
 sudo make install
@@ -329,8 +344,8 @@ sudo make install
 
 安装zlib
 ```
-tar -zxf zlib-1.2.11.tar.gz
-cd zlib-1.2.11
+tar -zxf zlib-*.tar.gz
+cd zlib-*
 ./configure
 make
 sudo make install
@@ -338,8 +353,8 @@ sudo make install
 
 安装OpenSSL
 ```
-tar -zxf openssl-1.1.1g.tar.gz
-cd openssl-1.1.1g
+tar -zxf openssl-*.tar.gz
+cd openssl-*
 ./Configure linux-x86_64 --prefix=/usr
 make
 sudo make install
