@@ -157,9 +157,9 @@ sudo chown -R cplm: /usr/local/elasticsearch
 #### 启用ElasticSearch认证
 
 #### 启动ElasticSearch
-新建systemd文件/lib/systemd/system/elasticsearch.service
+新建systemd文件/usr/lib/systemd/system/elasticsearch.service
 ```
-sudo vi /lib/systemd/system/elasticsearch.service
+sudo vi /usr/lib/systemd/system/elasticsearch.service
 ```
 
 文件内容如下
@@ -260,7 +260,12 @@ sudo chown -R cplm: /var/log/mongodb
 ```
 
 #### 启动服务
-新建systemd文件/lib/systemd/system/mongodb.service
+新建systemd文件/usr/lib/systemd/system/mongodb.service
+```
+sudo vi /usr/lib/systemd/system/mongodb.service
+```
+
+文件内容如下
 ```
 [Unit]
 Description=MongoDB Database Service
@@ -326,15 +331,15 @@ sudo make install
 ```
 tar zxf nginx-1.18.0.tar.gz
 cd nginx-1.18.0
-./configure --prefix==/usr/local/nginx --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1g --with-http_ssl_module --with-stream
+./configure --prefix=/usr/local/nginx --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1g --with-http_ssl_module --with-stream
 make
 sudo make install
 ```
 
 ### 注册服务
-新建systemd文件/lib/systemd/system/nginx.service
+新建systemd文件/usr/lib/systemd/system/nginx.service
 ```
-sudo vi /lib/systemd/system/nginx.service
+sudo vi /usr/lib/systemd/system/nginx.service
 ```
 
 文件内容如下
