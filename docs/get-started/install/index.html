@@ -179,8 +179,8 @@ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar
 </ul>
 <h4 id="安装elasticsearch" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85elasticsearch" aria-label="安装elasticsearch permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装ElasticSearch</h4>
 <p>安装ElasticSearch</p>
-<pre><code>sudo tar -xzf elasticsearch-6.4.3.tar.gz -C /usr/local
-sudo mv /usr/local/elasticsearch-6.4.3 /usr/local/elasticsearch
+<pre><code>sudo tar -xzf elasticsearch-*.tar.gz -C /usr/local
+sudo mv /usr/local/elasticsearch-* /usr/local/elasticsearch
 sudo chown -R cplm: /usr/local/elasticsearch
 </code></pre>
 <h4 id="启用elasticsearch认证" style="position:relative;"><a href="#%E5%90%AF%E7%94%A8elasticsearch%E8%AE%A4%E8%AF%81" aria-label="启用elasticsearch认证 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启用ElasticSearch认证</h4>
@@ -196,31 +196,12 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-RuntimeDirectory=elasticsearch
 PrivateTmp=true
-Environment=ES_HOME=/usr/local/elasticsearch
-Environment=ES_PATH_CONF=/usr/local/elasticsearch/conf
-Environment=PID_DIR=/usr/local/elasticsearch/logs
-EnvironmentFile=-/etc/sysconfig/elasticsearch
-
-WorkingDirectory=/usr/local/elasticsearch
-
 User=cplm
 
-ExecStart=/usr/share/elasticsearch/bin/elasticsearch -p ${PID_DIR}/elasticsearch
-.pid --quiet
+ExecStart=/usr/share/elasticsearch/bin/elasticsearch -p ${PID_DIR}/elasticsearch.pid --quiet
 
-# StandardOutput is configured to redirect to journalctl since
-# some error messages may be logged in standard output before
-# elasticsearch logging system is initialized. Elasticsearch
-# stores its logs in /var/log/elasticsearch and does not use
-# journalctl by default. If you also want to enable journalctl
-# logging, you can simply remove the "quiet" option from ExecStart.
-StandardOutput=journal
-StandardError=inherit
-
-# Specifies the maximum file descriptor number that can be opened by this proces
-s
+# Specifies the maximum file descriptor number that can be opened by this process
 LimitNOFILE=65536
 
 # Specifies the maximum number of processes
@@ -256,8 +237,7 @@ sudo systemctl enable elasticsearch
 sudo systemctl start elasticsearch
 </code></pre>
 <h4 id="检查运行状态-2" style="position:relative;"><a href="#%E6%A3%80%E6%9F%A5%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81-2" aria-label="检查运行状态 2 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>检查运行状态</h4>
-<p>访问<a href="http://localhost:9200">http://localhost:9200</a>，页面显示如下内容</p>
-<pre><code></code></pre>
+<p>访问<a href="http://localhost:9200">http://localhost:9200</a>，页面显示Elasticsearch版本信息。</p>
 <h4 id="安装kibana" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85kibana" aria-label="安装kibana permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Kibana</h4>
 <pre><code></code></pre>
 <h4 id="安装kibana-1" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85kibana-1" aria-label="安装kibana 1 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Kibana</h4>
