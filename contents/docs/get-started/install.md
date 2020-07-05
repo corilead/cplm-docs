@@ -142,7 +142,6 @@ PONG
 - 下载[ElasticSearch 6.4.3](https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz)
 - 下载[Kibana 6.4.3](https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz)
 ```
-cd ~
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
 wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
 ```
@@ -152,7 +151,9 @@ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar
 ```
 sudo tar -xzf elasticsearch-6.4.3.tar.gz -C /usr/local
 sudo mv /usr/local/elasticsearch-6.4.3 /usr/local/elasticsearch
-sudo chown cplm: /usr/local/elasticsearch
+sudo mkdir -p /var/run/elasticsearch
+sudo chown -R cplm: /usr/local/elasticsearch
+sudo chown -R cplm: /var/run/elasticsearch
 ```
 启动ElasticSearch
 ```
@@ -163,6 +164,11 @@ sudo chown cplm: /usr/local/elasticsearch
 
 #### 启动ElasticSearch
 新建systemd文件/lib/systemd/system/elasticsearch.service
+```
+sudo vi /lib/systemd/system/elasticsearch.service
+```
+
+文件内容如下
 ```
 [Unit]
 Description=Elasticsearch
@@ -175,7 +181,7 @@ Type=notify
 PrivateTmp=true
 Environment=ES_HOME=/usr/local/elasticsearch
 Environment=ES_PATH_CONF=${path.conf}
-Environment=PID_DIR=/var/run/elasticsearch
+Environment=PID_DIR=${ES_HOME}
 Environment=ES_SD_NOTIFY=true
 EnvironmentFile=-${path.env}
 
@@ -183,16 +189,7 @@ WorkingDirectory=/usr/local/elasticsearch
 
 User=cplm
 
-ExecStart=/usr/local/elasticsearch/bin/systemd-entrypoint -p ${PID_DIR}/elasticsearch.pid --quiet
-
-# StandardOutput is configured to redirect to journalctl since
-# some error messages may be logged in standard output before
-# elasticsearch logging system is initialized. Elasticsearch
-# stores its logs in /var/log/elasticsearch and does not use
-# journalctl by default. If you also want to enable journalctl
-# logging, you can simply remove the "quiet" option from ExecStart.
-StandardOutput=journal
-StandardError=inherit
+ExecStart=/usr/local/elasticsearch/bin/systemd-entrypoint -d -p ${PID_DIR}/elasticsearch.pid
 
 # Specifies the maximum file descriptor number that can be opened by this process
 LimitNOFILE=65535
@@ -224,10 +221,19 @@ SuccessExitStatus=143
 [Install]
 WantedBy=multi-user.target
 ```
+
 启动服务
 ```
-sudo systemctl start elasticsearch.service
+sudo systemctl daemon-reload
+sudo systemctl enable elasticsearch
+sudo systemctl start elasticsearch
 ```
+
+#### 检查运行状态
+访问[http://localhost:9200](http://localhost:9200)，页面显示如下内容
+```
+```
+
 
 #### 安装Kibana
 
