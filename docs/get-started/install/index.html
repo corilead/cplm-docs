@@ -78,7 +78,8 @@ cplm              soft    stack   10240
 <li>下载<a href="https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm">erlang 23.0.2</a></li>
 <li>
 <p>下载<a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm">RabbitMQ 3.8.5</a></p>
-<pre><code>wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
+<pre><code>cd ~
+wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm
 </code></pre>
 </li>
@@ -111,7 +112,8 @@ sudo rabbitmqctl set_permissions -p '/' 'cplm' '.*' '.*' '.*'
 <ul>
 <li>
 <p>下载<a href="http://download.redis.io/releases/redis-5.0.8.tar.gz">Redis 5.0.8</a></p>
-<pre><code>wget http://download.redis.io/releases/redis-5.0.8.tar.gz
+<pre><code>cd ~
+wget http://download.redis.io/releases/redis-5.0.8.tar.gz
 </code></pre>
 </li>
 </ul>
@@ -138,7 +140,7 @@ sudo cp redis.conf /etc/redis/6379.conf
 sudo sed -i 's/^daemonize .*/daemonize yes/g' /etc/redis/6379.conf
 sudo sed -i 's/^# requirepass .*/requirepass password/g' /etc/redis/6379.conf
 sudo sed -i 's/^logfile .*/logfile \/var\/log\/redis_6379.log/g' /etc/redis/6379.conf
-sudo sed -i 's/^dir .*/dir /var/redis/6379/g' \/etc\/redis\/6379.conf
+sudo sed -i 's/^dir .*/dir \/var\/redis\/6379/g' \/etc\/redis\/6379.conf
 </code></pre>
 <p><strong>注意：将password修改为需要设置的密码。</strong></p>
 </li>
@@ -163,6 +165,7 @@ sudo service redis_6379 start
 OK
 127.0.0.1:6379> ping
 PONG
+127.0.0.1:6379> exit
 </code></pre>
 <p><strong>注意：将password修改为前面步骤设置的密码。</strong></p>
 <h3 id="安装和配置elasticsearch" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEelasticsearch" aria-label="安装和配置elasticsearch permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置ElasticSearch</h3>
@@ -171,8 +174,9 @@ PONG
 <li>下载<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz">ElasticSearch 6.4.3</a></li>
 <li>
 <p>下载<a href="https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz">Kibana 6.4.3</a></p>
-<pre><code>wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
-wget ttps://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
+<pre><code>cd ~
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
+wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
 </code></pre>
 </li>
 </ul>
@@ -194,7 +198,8 @@ cd elasticsearch-6.4.3
 <ul>
 <li>
 <p>下载<a href="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz">MongoDB 4.2.8</a></p>
-<pre><code>wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz
+<pre><code>cd ~
+wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz
 </code></pre>
 </li>
 </ul>
@@ -216,7 +221,8 @@ sudo chown -R mongod:mongod /var/log/mongodb
 <li>下载<a href="http://www.openssl.org/source/openssl-1.1.1g.tar.gz">OpenSSL</a></li>
 <li>
 <p>下载<a href="https://nginx.org/download/nginx-1.18.0.tar.gz">Nginx 1.18.0</a></p>
-<pre><code>wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz
+<pre><code>cd ~
+wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz
 wget http://zlib.net/zlib-1.2.11.tar.gz
 wget http://www.openssl.org/source/openssl-1.1.1g.tar.gz
 wget https://nginx.org/download/nginx-1.18.0.tar.gz
@@ -253,7 +259,12 @@ cd nginx-1.18.0
 <h3 id="安装和配置mysql" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEmysql" aria-label="安装和配置mysql permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置MySQL</h3>
 <h4 id="下载软件-5" style="position:relative;"><a href="#%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6-5" aria-label="下载软件 5 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>下载软件</h4>
 <ul>
-<li>下载MySQL 8.0</li>
+<li>
+<p>下载<a href="https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz">MySQL 8.0</a></p>
+<pre><code>cd ~
+wget https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz
+</code></pre>
+</li>
 </ul>
 <h4 id="安装mysql" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85mysql" aria-label="安装mysql permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装MySQL</h4>
 <h3 id="安装和配置达梦" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%E8%BE%BE%E6%A2%A6" aria-label="安装和配置达梦 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置达梦</h3>
