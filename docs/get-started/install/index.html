@@ -183,12 +183,7 @@ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar
 <p>安装ElasticSearch</p>
 <pre><code>sudo tar -xzf elasticsearch-6.4.3.tar.gz -C /usr/local
 sudo mv /usr/local/elasticsearch-6.4.3 /usr/local/elasticsearch
-sudo mkdir -p /var/run/elasticsearch
 sudo chown -R cplm: /usr/local/elasticsearch
-sudo chown -R cplm: /var/run/elasticsearch
-</code></pre>
-<p>启动ElasticSearch</p>
-<pre><code>./bin/elasticsearch -d -p pid
 </code></pre>
 <h4 id="启用elasticsearch认证" style="position:relative;"><a href="#%E5%90%AF%E7%94%A8elasticsearch%E8%AE%A4%E8%AF%81" aria-label="启用elasticsearch认证 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启用ElasticSearch认证</h4>
 <h4 id="启动elasticsearch" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8elasticsearch" aria-label="启动elasticsearch permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动ElasticSearch</h4>
@@ -269,8 +264,9 @@ sudo systemctl start elasticsearch
 </li>
 </ul>
 <h4 id="安装mongodb" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85mongodb" aria-label="安装mongodb permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装MongoDB</h4>
-<pre><code class="language-bash">tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz
-sudo cp mongodb-linux-x86_64-rhel70-4.2.8/bin/* /usr/local/bin/
+<pre><code class="language-bash">sudo tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz -C /usr/local
+sudo mv mongodb-linux-x86_64-rhel70-4.2.8 mongodb
+sudo chown -R cplm: mongodb
 
 sudo mkdir -p /var/lib/mongo
 sudo mkdir -p /var/log/mongodb
@@ -305,8 +301,7 @@ WantedBy=multi-user.target
 <li>下载<a href="http://www.openssl.org/source/openssl-1.1.1g.tar.gz">OpenSSL</a></li>
 <li>
 <p>下载<a href="https://nginx.org/download/nginx-1.18.0.tar.gz">Nginx 1.18.0</a></p>
-<pre><code>cd ~
-wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz
+<pre><code>wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz
 wget http://zlib.net/zlib-1.2.11.tar.gz
 wget http://www.openssl.org/source/openssl-1.1.1g.tar.gz
 wget https://nginx.org/download/nginx-1.18.0.tar.gz
@@ -344,6 +339,9 @@ sudo make install
 </code></pre>
 <h3 id="注册服务" style="position:relative;"><a href="#%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1" aria-label="注册服务 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注册服务</h3>
 <p>新建systemd文件/lib/systemd/system/nginx.service</p>
+<pre><code>sudo vi /lib/systemd/system/nginx.service
+</code></pre>
+<p>文件内容如下</p>
 <pre><code>[Unit]
 Description=The NGINX HTTP and reverse proxy server
 After=syslog.target network-online.target remote-fs.target nss-lookup.target
@@ -351,9 +349,8 @@ Wants=network-online.target
 
 [Service]
 Type=forking
-PIDFile=/run/nginx.pid
-ExecStartPre=/usr/sbin/nginx -t
-ExecStart=/usr/sbin/nginx
+ExecStartPre=/usr/local/nginx/sbin/nginx -t
+ExecStart=/usr/local/nginx/sbin/nginx
 ExecReload=/usr/sbin/nginx -s reload
 ExecStop=/bin/kill -s QUIT $MAINPID
 PrivateTmp=true
@@ -362,7 +359,9 @@ PrivateTmp=true
 WantedBy=multi-user.target
 </code></pre>
 <h4 id="启动服务-2" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-2" aria-label="启动服务 2 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动服务</h4>
-<pre><code>sudo /usr/local/nginx/sbin/nginx
+<pre><code>sudo systemctl daemon-reload
+sudo systemctl enable nginx
+sudo systemctl start nginx
 </code></pre>
 <h4 id="检查运行状态-3" style="position:relative;"><a href="#%E6%A3%80%E6%9F%A5%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81-3" aria-label="检查运行状态 3 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>检查运行状态</h4>
 <p>访问<a href="http://localhost">http://localhost</a>，页面显示“Welcome to nginx!”。</p>
