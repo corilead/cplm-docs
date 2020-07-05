@@ -68,8 +68,11 @@ passwd cplm
 <h3 id="前提条件" style="position:relative;"><a href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6" aria-label="前提条件 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>前提条件</h3>
 <ul>
 <li>下载<a href="https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm">erlang 23.0.2</a></li>
-<li>下载<a href="https://packagecloud.io/rabbitmq/rabbitmq-server/packages/el/7/rabbitmq-server-3.8.5-1.el7.noarch.rpm">RabbitMQ 3.8.5</a></li>
-</ul>
+<li>
+<p>下载<a href="https://packagecloud.io/rabbitmq/rabbitmq-server/packages/el/7/rabbitmq-server-3.8.5-1.el7.noarch.rpm">RabbitMQ 3.8.5</a></p>
+<pre><code>wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
+wget https://packagecloud.io/rabbitmq/rabbitmq-server/packages/el/7/rabbitmq-server-3.8.5-1.el7.noarch.rpm
+</code></pre>
 <h3 id="安装rabbitmq" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85rabbitmq" aria-label="安装rabbitmq permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装RabbitMQ</h3>
 <pre><code>sudo chmod +x erlang-23.0.2-1.el7.x86_64.rpm
 sudo yum -y install erlang-23.0.2-1.el7.x86_64.rpm
@@ -77,6 +80,8 @@ sudo chmod +x rabbitmq-server-3.8.5-1.el7.noarch.rpm
 sudo yum -y install rabbitmq-server-3.8.5-1.el7.noarch.rpm
 sudo service rabbitmq-server start
 </code></pre>
+</li>
+</ul>
 <h3 id="启用管理控制台" style="position:relative;"><a href="#%E5%90%AF%E7%94%A8%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0" aria-label="启用管理控制台 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启用管理控制台</h3>
 <pre><code>cd /usr/lib/rabbitmq/lib/rabbitmq_server-3.8.5/ebin
 sudo rabbitmq-plugins enable rabbitmq_management
@@ -96,7 +101,11 @@ rabbitmqctl set_permissions -p '/' 'cplm' '.*' '.*' '.*'
 <h2 id="安装和配置redis" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEredis" aria-label="安装和配置redis permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置Redis</h2>
 <h3 id="前提条件-1" style="position:relative;"><a href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6-1" aria-label="前提条件 1 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>前提条件</h3>
 <ul>
-<li>下载<a href="http://download.redis.io/releases/redis-5.0.8.tar.gz">Redis 5.0.8</a></li>
+<li>
+<p>下载<a href="http://download.redis.io/releases/redis-5.0.8.tar.gz">Redis 5.0.8</a></p>
+<pre><code>http://download.redis.io/releases/redis-5.0.8.tar.gz
+</code></pre>
+</li>
 </ul>
 <h3 id="安装redis" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85redis" aria-label="安装redis permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Redis</h3>
 <pre><code>tar xvzf redis-5.0.8.tar.gz
@@ -119,7 +128,7 @@ sudo cp redis.conf /etc/redis/6379.conf
 <p>设置数据文件夹</p>
 <pre><code class="language-bash">sudo sed -i 's/^bind 127.0.0.1/# bind 127.0.0.1/g' /etc/redis/6379.conf
 sudo sed -i 's/^daemonize .*/daemonize yes/g' /etc/redis/6379.conf
-sudo sed -i 's/^# requirepass .*/requirepass **password**/g' /etc/redis/6379.conf
+sudo sed -i 's/^# requirepass .*/requirepass password/g' /etc/redis/6379.conf
 sudo sed -i 's/^logfile .*/logfile \/var\/log\/redis_6379.log/g' /etc/redis/6379.conf
 sudo sed -i 's/^dir .*/dir /var/redis/6379/g' \/etc\/redis\/6379.conf
 </code></pre>
@@ -151,21 +160,41 @@ PONG
 <h2 id="安装和配置elasticsearch" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEelasticsearch" aria-label="安装和配置elasticsearch permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置ElasticSearch</h2>
 <h3 id="前提条件-2" style="position:relative;"><a href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6-2" aria-label="前提条件 2 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>前提条件</h3>
 <ul>
-<li>下载<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.rpm">ElasticSearch 6.4.3</a></li>
-<li>下载<a href="https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz">Kibana 6.4.3</a></li>
+<li>下载<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz">ElasticSearch 6.4.3</a></li>
+<li>
+<p>下载<a href="https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz">Kibana 6.4.3</a></p>
+<pre><code>wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
+wget ttps://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
+</code></pre>
+</li>
 </ul>
-<h3 id="安装elasticsearchrpm模式" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85elasticsearchrpm%E6%A8%A1%E5%BC%8F" aria-label="安装elasticsearchrpm模式 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装ElasticSearch(RPM模式)</h3>
-<pre><code>sudo rpm --install elasticsearch-7.6.2-x86_64.rpm
+<h3 id="安装elasticsearchtargz格式" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85elasticsearchtargz%E6%A0%BC%E5%BC%8F" aria-label="安装elasticsearchtargz格式 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装ElasticSearch(.tar.gz格式)</h3>
+<p>安装ElasticSearch</p>
+<pre><code>tar -xzf elasticsearch-6.4.3.tar.gz
+cd elasticsearch-6.4.3
+</code></pre>
+<p>启动ElasticSearch</p>
+<pre><code>./bin/elasticsearch -d -p pid
+</code></pre>
+<h3 id="安装elasticsearchrpm格式" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85elasticsearchrpm%E6%A0%BC%E5%BC%8F" aria-label="安装elasticsearchrpm格式 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装ElasticSearch(.rpm格式)</h3>
+<pre><code>wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.rpm
+sudo rpm --install elasticsearch-6.4.3.rpm
 sudo chkconfig --add elasticsearch
 sudo -i service elasticsearch start
 </code></pre>
 <h3 id="启用elasticsearch认证" style="position:relative;"><a href="#%E5%90%AF%E7%94%A8elasticsearch%E8%AE%A4%E8%AF%81" aria-label="启用elasticsearch认证 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启用ElasticSearch认证</h3>
 <h3 id="安装kibana" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85kibana" aria-label="安装kibana permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Kibana</h3>
+<pre><code></code></pre>
+<h3 id="安装kibana-1" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85kibana-1" aria-label="安装kibana 1 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Kibana</h3>
 <h3 id="启用kibana认证" style="position:relative;"><a href="#%E5%90%AF%E7%94%A8kibana%E8%AE%A4%E8%AF%81" aria-label="启用kibana认证 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启用Kibana认证</h3>
 <h2 id="安装和配置mongodb" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEmongodb" aria-label="安装和配置mongodb permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置MongoDB</h2>
 <h3 id="前提条件-3" style="position:relative;"><a href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6-3" aria-label="前提条件 3 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>前提条件</h3>
 <ul>
-<li>下载<a href="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz">MongoDB 4.2.8</a></li>
+<li>
+<p>下载<a href="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz">MongoDB 4.2.8</a></p>
+<pre><code>wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz
+</code></pre>
+</li>
 </ul>
 <h3 id="安装mongodb" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85mongodb" aria-label="安装mongodb permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装MongoDB</h3>
 <pre><code class="language-bash">tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz
@@ -180,22 +209,44 @@ sudo chown -R mongod:mongod /var/log/mongodb
 <h2 id="安装和配置nginx" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEnginx" aria-label="安装和配置nginx permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置Nginx</h2>
 <h3 id="前提条件-4" style="position:relative;"><a href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6-4" aria-label="前提条件 4 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>前提条件</h3>
 <ul>
-<li>下载<a href="https://nginx.org/download/nginx-1.18.0.tar.gz">Nginx 1.18.0</a></li>
-<li>下载<a href="ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.44.tar.gz">PCRE</a></li>
+<li>下载<a href="https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz">PCRE</a></li>
 <li>下载<a href="http://zlib.net/zlib-1.2.11.tar.gz">zlib</a></li>
+<li>下载<a href="http://www.openssl.org/source/openssl-1.1.1g.tar.gz">OpenSSL</a></li>
 <li>
-<p>下载<a href="http://www.openssl.org/source/openssl-1.1.1g.tar.gz">OpenSSL</a></p>
-<pre><code>wget https://nginx.org/download/nginx-1.18.0.tar.gz
-wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.44.tar.gz
+<p>下载<a href="https://nginx.org/download/nginx-1.18.0.tar.gz">Nginx 1.18.0</a></p>
+<pre><code>wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz
 wget http://zlib.net/zlib-1.2.11.tar.gz
-wget wget http://www.openssl.org/source/openssl-1.1.1g.tar.gz
+wget http://www.openssl.org/source/openssl-1.1.1g.tar.gz
+wget https://nginx.org/download/nginx-1.18.0.tar.gz
 </code></pre>
 </li>
 </ul>
 <h3 id="安装依赖软件" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E8%BD%AF%E4%BB%B6" aria-label="安装依赖软件 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装依赖软件</h3>
+<p>安装PCER</p>
+<pre><code>tar -zxf pcre-8.44.tar.gz
+cd pcre-8.44
+./configure
+make
+sudo make install
+</code></pre>
+<p>安装zlib</p>
+<pre><code>tar -zxf zlib-1.2.11.tar.gz
+cd zlib-1.2.11
+./configure
+make
+sudo make install
+</code></pre>
+<p>安装OpenSSL</p>
+<pre><code>tar -zxf openssl-1.1.1g.tar.gz
+cd openssl-1.1.1g
+./Configure linux-x86_64 --prefix=/usr
+make
+sudo make install
+</code></pre>
 <h3 id="安装nginx" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85nginx" aria-label="安装nginx permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Nginx</h3>
 <pre><code>tar zxf nginx-1.18.0.tar.gz
 cd nginx-1.18.0
+./configure --sbin-path=/usr/local/nginx/nginx --conf-path=/usr/local/nginx/nginx.conf --pid-path=/usr/local/nginx/nginx.pid --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1.g --with-http_ssl_module --with-stream
 </code></pre>
 <h2 id="安装和配置mysql" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEmysql" aria-label="安装和配置mysql permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置MySQL</h2>
 <h3 id="前提条件-5" style="position:relative;"><a href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6-5" aria-label="前提条件 5 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>前提条件</h3>
@@ -205,6 +256,10 @@ cd nginx-1.18.0
 <h3 id="安装mysql" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85mysql" aria-label="安装mysql permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装MySQL</h3>
 <h2 id="安装和配置达梦" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%E8%BE%BE%E6%A2%A6" aria-label="安装和配置达梦 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置达梦</h2>
 <h3 id="前提条件-6" style="position:relative;"><a href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6-6" aria-label="前提条件 6 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>前提条件</h3>
+<ul>
+<li>达梦8安装软件</li>
+<li>达梦8许可文件</li>
+</ul>
 <h3 id="创建用户和组" style="position:relative;"><a href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84" aria-label="创建用户和组 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>创建用户和组</h3>
 <p>使用root用户登录创建数据库安装用户</p>
 <pre><code>groupadd dinstall
