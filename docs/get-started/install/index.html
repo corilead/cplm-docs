@@ -78,8 +78,7 @@ cplm              soft    stack   10240
 <li>下载<a href="https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm">erlang 23.0.2</a></li>
 <li>
 <p>下载<a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm">RabbitMQ 3.8.5</a></p>
-<pre><code>cd ~
-wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
+<pre><code>wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm
 </code></pre>
 </li>
@@ -112,14 +111,13 @@ sudo rabbitmqctl set_permissions -p '/' 'cplm' '.*' '.*' '.*'
 <ul>
 <li>
 <p>下载<a href="http://download.redis.io/releases/redis-5.0.8.tar.gz">Redis 5.0.8</a></p>
-<pre><code>cd ~
-wget http://download.redis.io/releases/redis-5.0.8.tar.gz
+<pre><code>wget http://download.redis.io/releases/redis-5.0.8.tar.gz
 </code></pre>
 </li>
 </ul>
 <h4 id="安装redis" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85redis" aria-label="安装redis permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Redis</h4>
-<pre><code>tar xvzf redis-5.0.8.tar.gz
-cd redis-5.0.8
+<pre><code>tar xvzf redis-*.tar.gz
+cd redis-*
 sudo make install MALLOC=libc
 
 sudo mkdir /etc/redis
@@ -193,27 +191,37 @@ sudo chown -R cplm: /usr/local/elasticsearch
 <p>文件内容如下</p>
 <pre><code>[Unit]
 Description=Elasticsearch
-Documentation=https://www.elastic.co
+Documentation=http://www.elastic.co
 Wants=network-online.target
 After=network-online.target
 
 [Service]
-Type=notify
+RuntimeDirectory=elasticsearch
 PrivateTmp=true
 Environment=ES_HOME=/usr/local/elasticsearch
-Environment=ES_PATH_CONF=${path.conf}
-Environment=PID_DIR=${ES_HOME}
-Environment=ES_SD_NOTIFY=true
-EnvironmentFile=-${path.env}
+Environment=ES_PATH_CONF=/usr/local/elasticsearch/conf
+Environment=PID_DIR=/usr/local/elasticsearch/logs
+EnvironmentFile=-/etc/sysconfig/elasticsearch
 
 WorkingDirectory=/usr/local/elasticsearch
 
 User=cplm
 
-ExecStart=/usr/local/elasticsearch/bin/systemd-entrypoint -d -p ${PID_DIR}/elasticsearch.pid
+ExecStart=/usr/share/elasticsearch/bin/elasticsearch -p ${PID_DIR}/elasticsearch
+.pid --quiet
 
-# Specifies the maximum file descriptor number that can be opened by this process
-LimitNOFILE=65535
+# StandardOutput is configured to redirect to journalctl since
+# some error messages may be logged in standard output before
+# elasticsearch logging system is initialized. Elasticsearch
+# stores its logs in /var/log/elasticsearch and does not use
+# journalctl by default. If you also want to enable journalctl
+# logging, you can simply remove the "quiet" option from ExecStart.
+StandardOutput=journal
+StandardError=inherit
+
+# Specifies the maximum file descriptor number that can be opened by this proces
+s
+LimitNOFILE=65536
 
 # Specifies the maximum number of processes
 LimitNPROC=4096
@@ -264,8 +272,8 @@ sudo systemctl start elasticsearch
 </li>
 </ul>
 <h4 id="安装mongodb" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85mongodb" aria-label="安装mongodb permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装MongoDB</h4>
-<pre><code class="language-bash">sudo tar -zxvf mongodb-linux-x86_64-rhel70-4.2.8.tgz -C /usr/local
-sudo mv /usr/local/mongodb-linux-x86_64-rhel70-4.2.8 /usr/local/mongodb
+<pre><code class="language-bash">sudo tar -zxvf mongodb-linux-*.tgz -C /usr/local
+sudo mv /usr/local/mongodb-* /usr/local/mongodb
 sudo chown -R cplm: /usr/local/mongodb
 
 sudo mkdir -p /var/lib/mongodb
@@ -287,7 +295,7 @@ storage:
 net:
   bindIp: 127.0.0.1
 </code></pre>
-<h4 id="启动服务-1" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-1" aria-label="启动服务 1 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动服务</h4>
+<h4 id="注册服务" style="position:relative;"><a href="#%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1" aria-label="注册服务 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注册服务</h4>
 <p>新建systemd文件/usr/lib/systemd/system/mongodb.service</p>
 <pre><code class="language-bash">sudo vi /usr/lib/systemd/system/mongodb.service
 </code></pre>
@@ -300,7 +308,7 @@ After=network.target
 [Service]
 Type=forking
 PIDFile=/var/run/mongodb/mongod.pid
-ExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/etc/mongod.conf
+ExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/etc/mongod.conf --fork
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 User=cplm
@@ -309,6 +317,11 @@ StandardError=syslog
 
 [Install]
 WantedBy=multi-user.target
+</code></pre>
+<h4 id="启动服务-1" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-1" aria-label="启动服务 1 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动服务</h4>
+<pre><code>sudo systemctl daemon-reload
+sudo systemctl enable mongodb
+sudo systemctl start mongodb
 </code></pre>
 <h3 id="安装和配置nginx" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEnginx" aria-label="安装和配置nginx permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置Nginx</h3>
 <h4 id="下载软件-4" style="position:relative;"><a href="#%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6-4" aria-label="下载软件 4 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>下载软件</h4>
@@ -327,22 +340,22 @@ wget https://nginx.org/download/nginx-1.18.0.tar.gz
 </ul>
 <h4 id="安装依赖软件" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E8%BD%AF%E4%BB%B6" aria-label="安装依赖软件 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装依赖软件</h4>
 <p>安装PCER</p>
-<pre><code>tar -zxf pcre-8.44.tar.gz
-cd pcre-8.44
+<pre><code>tar -zxf pcre-*.tar.gz
+cd pcre-*
 ./configure
 make
 sudo make install
 </code></pre>
 <p>安装zlib</p>
-<pre><code>tar -zxf zlib-1.2.11.tar.gz
-cd zlib-1.2.11
+<pre><code>tar -zxf zlib-*.tar.gz
+cd zlib-*
 ./configure
 make
 sudo make install
 </code></pre>
 <p>安装OpenSSL</p>
-<pre><code>tar -zxf openssl-1.1.1g.tar.gz
-cd openssl-1.1.1g
+<pre><code>tar -zxf openssl-*.tar.gz
+cd openssl-*
 ./Configure linux-x86_64 --prefix=/usr
 make
 sudo make install
@@ -354,7 +367,7 @@ cd nginx-1.18.0
 make
 sudo make install
 </code></pre>
-<h3 id="注册服务" style="position:relative;"><a href="#%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1" aria-label="注册服务 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注册服务</h3>
+<h3 id="注册服务-1" style="position:relative;"><a href="#%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1-1" aria-label="注册服务 1 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注册服务</h3>
 <p>新建systemd文件/usr/lib/systemd/system/nginx.service</p>
 <pre><code>sudo vi /usr/lib/systemd/system/nginx.service
 </code></pre>
