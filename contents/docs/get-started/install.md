@@ -54,7 +54,6 @@ sudo service rabbitmq-server start
 
 #### 启用管理控制台
 ```
-cd /usr/lib/rabbitmq/lib/rabbitmq_server-3.8.5/ebin
 sudo rabbitmq-plugins enable rabbitmq_management
 sudo service rabbitmq-server restart
 ```
@@ -63,9 +62,9 @@ sudo service rabbitmq-server restart
 #### 创建用户
 创建rabbitmq用户并设置权限
 ```bash
-rabbitmqctl add_user cplm password
-rabbitmqctl set_user_tags cplm administrator
-rabbitmqctl set_permissions -p '/' 'cplm' '.*' '.*' '.*'
+sudo rabbitmqctl add_user cplm password
+sudo rabbitmqctl set_user_tags cplm administrator
+sudo rabbitmqctl set_permissions -p '/' 'cplm' '.*' '.*' '.*'
 ```
 **注意：将password修改为需要设置的密码。**
 
