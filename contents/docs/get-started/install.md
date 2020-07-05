@@ -69,7 +69,7 @@ sudo rabbitmqctl set_permissions -p '/' 'cplm' '.*' '.*' '.*'
 
 #### 删除默认用户
 ```bash
-rabbitmqctl delete_user guest
+sudo rabbitmqctl delete_user guest
 ```
 
 #### 检查运行状态
@@ -79,7 +79,7 @@ rabbitmqctl delete_user guest
 #### 下载软件
 - 下载[Redis 5.0.8](http://download.redis.io/releases/redis-5.0.8.tar.gz)
 ```
-http://download.redis.io/releases/redis-5.0.8.tar.gz
+wget http://download.redis.io/releases/redis-5.0.8.tar.gz
 ```
 
 #### 安装Redis
@@ -143,7 +143,7 @@ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.ta
 wget ttps://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
 ```
 
-#### 安装ElasticSearch(.tar.gz格式)
+#### 安装ElasticSearch
 安装ElasticSearch
 ```
 tar -xzf elasticsearch-6.4.3.tar.gz
@@ -152,15 +152,6 @@ cd elasticsearch-6.4.3
 启动ElasticSearch
 ```
 ./bin/elasticsearch -d -p pid
-```
-
-
-#### 安装ElasticSearch(.rpm格式)
-```
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.rpm
-sudo rpm --install elasticsearch-6.4.3.rpm
-sudo chkconfig --add elasticsearch
-sudo -i service elasticsearch start
 ```
 
 #### 启用ElasticSearch认证
