@@ -222,12 +222,51 @@ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar
 #### 安装Kibana
 
 ```
-
+sudo tar -xzf kibana-*.tar.gz -C /usr/local
+sudo mv /usr/local/kibana-* /usr/local/kibana
+sudo chown -R cplm: /usr/local/kibana
 ```
 
 #### 启用Kibana认证
 
 #### 注册系统服务
+
+新建systemd文件/usr/lib/systemd/system/kibana.service
+
+```
+sudo vi /usr/lib/systemd/system/kibana.service
+```
+
+文件内容如下
+
+```
+[Unit]
+Description=Kibana
+Documentation=http://www.elastic.co
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+PrivateTmp=true
+User=cplm
+
+ExecStart=/usr/share/kibana/bin/kibana
+
+[Install]
+WantedBy=multi-user.target
+```
+
+#### 启动服务
+
+```
+sudo systemctl daemon-reload
+sudo systemctl enable kibana
+sudo systemctl start kibana
+```
+
+#### 检查运行状态
+
+访问[http://localhost:5601](http://localhost:5601)，页面显示Kibana信息。
 
 #### 启动服务
 
