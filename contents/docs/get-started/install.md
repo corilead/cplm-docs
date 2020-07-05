@@ -1,8 +1,7 @@
----
-title: "系统安装配置(Linux)"
+#### title: "系统安装配置(Linux)"
 sidebar: Docs
 showTitle: true
----
+
 ## 准备工作
 - 安装CentOS 7.x
 - 安装Development Tools
@@ -30,10 +29,6 @@ cplm              soft    stack   10240
 
 ## 手动安装
 
-### 安装Java SDK
-
-### 安装Apache Maven
-
 ### 安装和配置RabbitMQ
 #### 下载软件
 - 下载[erlang 23.0.2](https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm)
@@ -45,10 +40,10 @@ wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbit
 
 #### 安装RabbitMQ
 ```
-sudo chmod +x erlang-23.0.2-1.el7.x86_64.rpm
-sudo yum -y install erlang-23.0.2-1.el7.x86_64.rpm
-sudo chmod +x rabbitmq-server-3.8.5-1.el7.noarch.rpm
-sudo yum -y install rabbitmq-server-3.8.5-1.el7.noarch.rpm
+sudo chmod +x erlang-*.rpm
+sudo yum -y install erlang-*.rpm
+sudo chmod +x rabbitmq-server-*.noarch.rpm
+sudo yum -y install rabbitmq-server-*.noarch.rpm
 sudo service rabbitmq-server start
 ```
 
@@ -96,6 +91,7 @@ sudo cp redis.conf /etc/redis/6379.conf
 ```
 
 #### 修改配置文件
+
 - 取消绑定本机IP
 - 设置为守护进程
 - 启用认证密码
@@ -138,23 +134,20 @@ PONG
 ### 安装和配置ElasticSearch
 #### 下载软件
 - 下载[ElasticSearch 6.4.3](https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz)
-- 下载[Kibana 6.4.3](https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz)
 ```
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
-wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
 ```
 
 #### 安装ElasticSearch
-安装ElasticSearch
 ```
 sudo tar -xzf elasticsearch-*.tar.gz -C /usr/local
 sudo mv /usr/local/elasticsearch-* /usr/local/elasticsearch
 sudo chown -R cplm: /usr/local/elasticsearch
 ```
 
-#### 启用ElasticSearch认证
+#### 启用用户认证
 
-#### 启动ElasticSearch
+#### 注册系统服务
 新建systemd文件/usr/lib/systemd/system/elasticsearch.service
 ```
 sudo vi /usr/lib/systemd/system/elasticsearch.service
@@ -172,7 +165,7 @@ After=network-online.target
 PrivateTmp=true
 User=cplm
 
-ExecStart=/usr/share/elasticsearch/bin/elasticsearch -p ${PID_DIR}/elasticsearch.pid --quiet
+ExecStart=/usr/share/elasticsearch/bin/elasticsearch -p /usr/share/elasticsearch/logs/elasticsearch.pid --quiet
 
 # Specifies the maximum file descriptor number that can be opened by this process
 LimitNOFILE=65536
@@ -205,7 +198,8 @@ SuccessExitStatus=143
 WantedBy=multi-user.target
 ```
 
-启动服务
+#### 启动服务
+
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable elasticsearch
@@ -215,15 +209,27 @@ sudo systemctl start elasticsearch
 #### 检查运行状态
 访问[http://localhost:9200](http://localhost:9200)，页面显示Elasticsearch版本信息。
 
+### 安装和配置Kibana
+
+#### 下载软件
+
+- 下载[Kibana 6.4.3](https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz)
+
+```
+wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
+```
+
 #### 安装Kibana
 
 ```
 
 ```
-
-#### 安装Kibana
 
 #### 启用Kibana认证
+
+#### 注册系统服务
+
+#### 启动服务
 
 
 ### 安装和配置MongoDB
@@ -263,7 +269,7 @@ net:
   bindIp: 127.0.0.1
 ```
 
-#### 注册服务
+#### 注册系统服务
 新建systemd文件/usr/lib/systemd/system/mongodb.service
 ```bash
 sudo vi /usr/lib/systemd/system/mongodb.service
@@ -340,14 +346,14 @@ sudo make install
 
 #### 安装Nginx
 ```
-tar zxf nginx-1.18.0.tar.gz
-cd nginx-1.18.0
+tar zxf nginx-*.tar.gz
+cd nginx-*
 ./configure --prefix=/usr/local/nginx --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1g --with-http_ssl_module --with-stream
 make
 sudo make install
 ```
 
-### 注册服务
+#### 注册系统服务
 新建systemd文件/usr/lib/systemd/system/nginx.service
 ```
 sudo vi /usr/lib/systemd/system/nginx.service
@@ -388,7 +394,7 @@ sudo systemctl start nginx
 - 下载[MySQL 8.0](https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz)
 ```
 cd ~
-wget https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz
+wget https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz
 ```
 
 #### 安装MySQL
@@ -423,4 +429,4 @@ sudo ./dminit PATH=/var/dmdbms PAGE_SIZE=16
 ```
 
 ### 安装和配置Nacos
-#### 前提
+#### 下载软件
