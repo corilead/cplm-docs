@@ -187,8 +187,8 @@ sudo chown -R cplm: /usr/local/elasticsearch
 </code></pre>
 <h4 id="启用elasticsearch认证" style="position:relative;"><a href="#%E5%90%AF%E7%94%A8elasticsearch%E8%AE%A4%E8%AF%81" aria-label="启用elasticsearch认证 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启用ElasticSearch认证</h4>
 <h4 id="启动elasticsearch" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8elasticsearch" aria-label="启动elasticsearch permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动ElasticSearch</h4>
-<p>新建systemd文件/lib/systemd/system/elasticsearch.service</p>
-<pre><code>sudo vi /lib/systemd/system/elasticsearch.service
+<p>新建systemd文件/usr/lib/systemd/system/elasticsearch.service</p>
+<pre><code>sudo vi /usr/lib/systemd/system/elasticsearch.service
 </code></pre>
 <p>文件内容如下</p>
 <pre><code>[Unit]
@@ -274,7 +274,10 @@ sudo chown -R cplm: /var/lib/mongo
 sudo chown -R cplm: /var/log/mongodb
 </code></pre>
 <h4 id="启动服务-1" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-1" aria-label="启动服务 1 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动服务</h4>
-<p>新建systemd文件/lib/systemd/system/mongodb.service</p>
+<p>新建systemd文件/usr/lib/systemd/system/mongodb.service</p>
+<pre><code>sudo vi /usr/lib/systemd/system/mongodb.service
+</code></pre>
+<p>文件内容如下</p>
 <pre><code>[Unit]
 Description=MongoDB Database Service
 Wants=network.target
@@ -333,13 +336,13 @@ sudo make install
 <h4 id="安装nginx" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85nginx" aria-label="安装nginx permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Nginx</h4>
 <pre><code>tar zxf nginx-1.18.0.tar.gz
 cd nginx-1.18.0
-./configure --prefix==/usr/local/nginx --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1g --with-http_ssl_module --with-stream
+./configure --prefix=/usr/local/nginx --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1g --with-http_ssl_module --with-stream
 make
 sudo make install
 </code></pre>
 <h3 id="注册服务" style="position:relative;"><a href="#%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1" aria-label="注册服务 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注册服务</h3>
-<p>新建systemd文件/lib/systemd/system/nginx.service</p>
-<pre><code>sudo vi /lib/systemd/system/nginx.service
+<p>新建systemd文件/usr/lib/systemd/system/nginx.service</p>
+<pre><code>sudo vi /usr/lib/systemd/system/nginx.service
 </code></pre>
 <p>文件内容如下</p>
 <pre><code>[Unit]
