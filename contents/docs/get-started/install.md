@@ -147,8 +147,8 @@ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar
 #### 安装ElasticSearch
 安装ElasticSearch
 ```
-sudo tar -xzf elasticsearch-6.4.3.tar.gz -C /usr/local
-sudo mv /usr/local/elasticsearch-6.4.3 /usr/local/elasticsearch
+sudo tar -xzf elasticsearch-*.tar.gz -C /usr/local
+sudo mv /usr/local/elasticsearch-* /usr/local/elasticsearch
 sudo chown -R cplm: /usr/local/elasticsearch
 ```
 
@@ -169,31 +169,12 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-RuntimeDirectory=elasticsearch
 PrivateTmp=true
-Environment=ES_HOME=/usr/local/elasticsearch
-Environment=ES_PATH_CONF=/usr/local/elasticsearch/conf
-Environment=PID_DIR=/usr/local/elasticsearch/logs
-EnvironmentFile=-/etc/sysconfig/elasticsearch
-
-WorkingDirectory=/usr/local/elasticsearch
-
 User=cplm
 
-ExecStart=/usr/share/elasticsearch/bin/elasticsearch -p ${PID_DIR}/elasticsearch
-.pid --quiet
+ExecStart=/usr/share/elasticsearch/bin/elasticsearch -p ${PID_DIR}/elasticsearch.pid --quiet
 
-# StandardOutput is configured to redirect to journalctl since
-# some error messages may be logged in standard output before
-# elasticsearch logging system is initialized. Elasticsearch
-# stores its logs in /var/log/elasticsearch and does not use
-# journalctl by default. If you also want to enable journalctl
-# logging, you can simply remove the "quiet" option from ExecStart.
-StandardOutput=journal
-StandardError=inherit
-
-# Specifies the maximum file descriptor number that can be opened by this proces
-s
+# Specifies the maximum file descriptor number that can be opened by this process
 LimitNOFILE=65536
 
 # Specifies the maximum number of processes
@@ -232,10 +213,7 @@ sudo systemctl start elasticsearch
 ```
 
 #### 检查运行状态
-访问[http://localhost:9200](http://localhost:9200)，页面显示如下内容
-```
-```
-
+访问[http://localhost:9200](http://localhost:9200)，页面显示Elasticsearch版本信息。
 
 #### 安装Kibana
 
