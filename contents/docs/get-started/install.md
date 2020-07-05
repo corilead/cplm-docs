@@ -57,7 +57,6 @@ sudo service rabbitmq-server start
 sudo rabbitmq-plugins enable rabbitmq_management
 sudo service rabbitmq-server restart
 ```
-访问[http://localhost:15672](http://localhost:15672)，使用默认用户guest/guest登录。
 
 #### 创建用户
 创建rabbitmq用户并设置权限
@@ -72,6 +71,9 @@ sudo rabbitmqctl set_permissions -p '/' 'cplm' '.*' '.*' '.*'
 ```bash
 rabbitmqctl delete_user guest
 ```
+
+#### 检查运行状态
+访问[http://localhost:15672](http://localhost:15672)，使用新创建的用户登录。
 
 ### 安装和配置Redis
 #### 下载软件
@@ -93,7 +95,7 @@ sudo cp utils/redis_init_script /etc/init.d/redis_6379
 sudo cp redis.conf /etc/redis/6379.conf
 ```
 
-#### 修改Redis配置文件
+#### 修改配置文件
 - 取消绑定本机IP
 - 设置为守护进程
 - 启用认证密码
@@ -108,21 +110,21 @@ sudo sed -i 's/^dir .*/dir /var/redis/6379/g' \/etc\/redis\/6379.conf
 ```
 **注意：将password修改为需要设置的密码。**
 
-#### 修改Redis启动脚本
+#### 修改启动脚本
 - 设置认证密码
 ```bash
 sudo sed -i 's/$CLIEXEC -p $REDISPORT shutdown/$CLIEXEC -a password -p $REDISPORT shutdown/g' /etc/init.d/redis_6379
 ```
 **注意：将password修改为前面步骤设置的密码。**
 
-#### 启动Redis
+#### 启动服务
 注册为系统服务，并且启动redis服务
 ```bash
 sudo chkconfig redis_6379 on
 sudo service redis_6379 start
 ```
 
-#### 检查Redis运行状态
+#### 检查运行状态
 ```bash
 $ redis-cli
 127.0.0.1:6379> auth password
