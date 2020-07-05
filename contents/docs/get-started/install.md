@@ -39,6 +39,7 @@ cplm              soft    stack   10240
 - 下载[erlang 23.0.2](https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm)
 - 下载[RabbitMQ 3.8.5](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm)
 ```
+cd ~
 wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm
 ```
@@ -79,6 +80,7 @@ sudo rabbitmqctl delete_user guest
 #### 下载软件
 - 下载[Redis 5.0.8](http://download.redis.io/releases/redis-5.0.8.tar.gz)
 ```
+cd ~
 wget http://download.redis.io/releases/redis-5.0.8.tar.gz
 ```
 
@@ -106,7 +108,7 @@ sudo sed -i 's/^bind 127.0.0.1/# bind 127.0.0.1/g' /etc/redis/6379.conf
 sudo sed -i 's/^daemonize .*/daemonize yes/g' /etc/redis/6379.conf
 sudo sed -i 's/^# requirepass .*/requirepass password/g' /etc/redis/6379.conf
 sudo sed -i 's/^logfile .*/logfile \/var\/log\/redis_6379.log/g' /etc/redis/6379.conf
-sudo sed -i 's/^dir .*/dir /var/redis/6379/g' \/etc\/redis\/6379.conf
+sudo sed -i 's/^dir .*/dir \/var\/redis\/6379/g' \/etc\/redis\/6379.conf
 ```
 **注意：将password修改为需要设置的密码。**
 
@@ -131,6 +133,7 @@ $ redis-cli
 OK
 127.0.0.1:6379> ping
 PONG
+127.0.0.1:6379> exit
 ```
 **注意：将password修改为前面步骤设置的密码。**
 
@@ -139,8 +142,9 @@ PONG
 - 下载[ElasticSearch 6.4.3](https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz)
 - 下载[Kibana 6.4.3](https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz)
 ```
+cd ~
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
-wget ttps://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
+wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
 ```
 
 #### 安装ElasticSearch
@@ -171,6 +175,7 @@ cd elasticsearch-6.4.3
 #### 下载软件
 - 下载[MongoDB 4.2.8](https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz)
 ```
+cd ~
 wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz
 ```
 
@@ -193,6 +198,7 @@ sudo chown -R mongod:mongod /var/log/mongodb
 - 下载[OpenSSL](http://www.openssl.org/source/openssl-1.1.1g.tar.gz)
 - 下载[Nginx 1.18.0](https://nginx.org/download/nginx-1.18.0.tar.gz)
 ```
+cd ~
 wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz
 wget http://zlib.net/zlib-1.2.11.tar.gz
 wget http://www.openssl.org/source/openssl-1.1.1g.tar.gz
@@ -236,7 +242,11 @@ cd nginx-1.18.0
 
 ### 安装和配置MySQL
 #### 下载软件
-- 下载MySQL 8.0
+- 下载[MySQL 8.0](https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz)
+```
+cd ~
+wget https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz
+```
 
 #### 安装MySQL
 
