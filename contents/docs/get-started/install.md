@@ -6,7 +6,18 @@ showTitle: true
 - 安装CentOS 7.x
 - 安装Development Tools
 
+### 安装第三方类库
+
+#### 下载软件
+
+```
+wgeet https://access.cdn.redhat.com/content/origin/rpms/socat/1.7.3.2/2.el7/fd431d51/socat-1.7.3.2-2.el7.x86_64.rpm?user=&_auth_=1593997397_05703a7853c98e2a8bd5c825262963fe
+```
+
+
+
 ### 创建操作系统用户
+
 以root用户登录，创建用户并设置密码
 ```
 echo 'cplm ALL=(ALL) ALL' >> /etc/sudoers
@@ -266,7 +277,7 @@ sudo systemctl start kibana
 
 #### 检查运行状态
 
-访问[http://localhost:5601](http://localhost:5601)，页面显示Kibana信息。
+访问[localhost:5601/status](localhost:5601/status)，页面显示Kibana状态信息。
 
 #### 启动服务
 
