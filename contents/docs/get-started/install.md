@@ -12,13 +12,13 @@ showTitle: true
 
 #### 下载软件
 
-```
+```sh
 wget https://access.cdn.redhat.com/content/origin/rpms/socat/1.7.3.2/2.el7/fd431d51/socat-1.7.3.2-2.el7.x86_64.rpm?user=&_auth_=1593997397_05703a7853c98e2a8bd5c825262963fe
 ```
 
 安装
 
-```
+```sh
 sudo yum -y install socat-*.ramp
 ```
 
@@ -27,7 +27,7 @@ sudo yum -y install socat-*.ramp
 ### 创建操作系统用户
 
 以root用户登录，创建用户并设置密码
-```
+```sh
 echo 'cplm ALL=(ALL) ALL' >> /etc/sudoers
 groupadd cinstall
 useradd -g cinstall cplm
@@ -52,13 +52,13 @@ cplm              soft    stack   10240
 #### 下载软件
 - 下载[erlang 23.0.2](https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm)
 - 下载[RabbitMQ 3.8.5](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm)
-```
+```sh
 wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm
 ```
 
 #### 安装RabbitMQ
-```
+```sh
 sudo chmod +x erlang-*.rpm
 sudo yum -y install erlang-*.rpm
 sudo chmod +x rabbitmq-server-*.noarch.rpm
@@ -67,7 +67,7 @@ sudo service rabbitmq-server start
 ```
 
 #### 启用管理控制台
-```
+```sh
 sudo rabbitmq-plugins enable rabbitmq_management
 sudo service rabbitmq-server restart
 ```
@@ -92,12 +92,12 @@ sudo rabbitmqctl delete_user guest
 ### 安装和配置Redis
 #### 下载软件
 - 下载[Redis 5.0.8](http://download.redis.io/releases/redis-5.0.8.tar.gz)
-```
+```sh
 wget http://download.redis.io/releases/redis-5.0.8.tar.gz
 ```
 
 #### 安装Redis
-```
+```sh
 tar xvzf redis-*.tar.gz
 cd redis-*
 sudo make install MALLOC=libc
@@ -153,12 +153,12 @@ PONG
 ### 安装和配置ElasticSearch
 #### 下载软件
 - 下载[ElasticSearch 6.4.3](https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz)
-```
+```sh
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
 ```
 
 #### 安装ElasticSearch
-```
+```sh
 sudo tar -xzf elasticsearch-*.tar.gz -C /usr/local
 sudo mv /usr/local/elasticsearch-* /usr/local/elasticsearch
 sudo chown -R cplm: /usr/local/elasticsearch
@@ -168,12 +168,12 @@ sudo chown -R cplm: /usr/local/elasticsearch
 
 #### 注册系统服务
 新建systemd文件/usr/lib/systemd/system/elasticsearch.service
-```
+```sh
 sudo vi /usr/lib/systemd/system/elasticsearch.service
 ```
 
 文件内容如下
-```
+```sh
 [Unit]
 Description=Elasticsearch
 Documentation=http://www.elastic.co
@@ -219,7 +219,7 @@ WantedBy=multi-user.target
 
 #### 启动服务
 
-```
+```sh
 sudo systemctl daemon-reload
 sudo systemctl enable elasticsearch
 sudo systemctl start elasticsearch
@@ -234,13 +234,13 @@ sudo systemctl start elasticsearch
 
 - 下载[Kibana 6.4.3](https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz)
 
-```
+```sh
 wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
 ```
 
 #### 安装Kibana
 
-```
+```sh
 sudo tar -xzf kibana-*.tar.gz -C /usr/local
 sudo mv /usr/local/kibana-* /usr/local/kibana
 sudo chown -R cplm: /usr/local/kibana
@@ -252,13 +252,13 @@ sudo chown -R cplm: /usr/local/kibana
 
 新建systemd文件/usr/lib/systemd/system/kibana.service
 
-```
+```sh
 sudo vi /usr/lib/systemd/system/kibana.service
 ```
 
 文件内容如下
 
-```
+```sh
 [Unit]
 Description=Kibana
 Documentation=http://www.elastic.co
@@ -316,7 +316,7 @@ sudo vi /usr/local/etc/mongod.conf
 ```
 
 文件内容如下：
-```
+```properties
 systemLog:
   destination: file
   path: /var/log/mongodb/mongo.log
@@ -329,12 +329,12 @@ net:
 
 #### 注册系统服务
 新建systemd文件/usr/lib/systemd/system/mongodb.service
-```bash
+```sh
 sudo vi /usr/lib/systemd/system/mongodb.service
 ```
 
 文件内容如下
-```
+```sh
 [Unit]
 Description=MongoDB Database Service
 Wants=network.target
@@ -354,7 +354,7 @@ WantedBy=multi-user.target
 ```
 
 #### 启动服务
-```
+```sh
 sudo systemctl daemon-reload
 sudo systemctl enable mongodb
 sudo systemctl start mongodb
@@ -366,7 +366,7 @@ sudo systemctl start mongodb
 - 下载[zlib](http://zlib.net/zlib-1.2.11.tar.gz)
 - 下载[OpenSSL](http://www.openssl.org/source/openssl-1.1.1g.tar.gz)
 - 下载[Nginx 1.18.0](https://nginx.org/download/nginx-1.18.0.tar.gz)
-```
+```sh
 wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz
 wget http://zlib.net/zlib-1.2.11.tar.gz
 wget http://www.openssl.org/source/openssl-1.1.1g.tar.gz
@@ -375,7 +375,7 @@ wget https://nginx.org/download/nginx-1.18.0.tar.gz
 
 #### 安装依赖软件
 安装PCER
-```
+```sh
 tar -zxf pcre-*.tar.gz
 cd pcre-*
 ./configure
@@ -384,7 +384,7 @@ sudo make install
 ```
 
 安装zlib
-```
+```sh
 tar -zxf zlib-*.tar.gz
 cd zlib-*
 ./configure
@@ -393,7 +393,7 @@ sudo make install
 ```
 
 安装OpenSSL
-```
+```sh
 tar -zxf openssl-*.tar.gz
 cd openssl-*
 ./Configure linux-x86_64 --prefix=/usr
@@ -402,7 +402,7 @@ sudo make install
 ```
 
 #### 安装Nginx
-```
+```sh
 tar zxf nginx-*.tar.gz
 cd nginx-*
 ./configure --prefix=/usr/local/nginx --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1g --with-http_ssl_module --with-stream
@@ -412,12 +412,12 @@ sudo make install
 
 #### 注册系统服务
 新建systemd文件/usr/lib/systemd/system/nginx.service
-```
+```sh
 sudo vi /usr/lib/systemd/system/nginx.service
 ```
 
 文件内容如下
-```
+```sh
 [Unit]
 Description=The NGINX HTTP and reverse proxy server
 After=syslog.target network-online.target remote-fs.target nss-lookup.target
@@ -436,7 +436,7 @@ WantedBy=multi-user.target
 ```
 
 #### 启动服务
-```
+```sh
 sudo systemctl daemon-reload
 sudo systemctl enable nginx
 sudo systemctl start nginx
@@ -449,8 +449,7 @@ sudo systemctl start nginx
 ### 安装和配置MySQL
 #### 下载软件
 - 下载[MySQL 8.0](https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz)
-```
-cd ~
+```sh
 wget https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz
 ```
 
@@ -464,7 +463,7 @@ wget https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_
 
 #### 创建用户和组
 使用root用户登录创建数据库安装用户
-```
+```sh
 groupadd dinstall
 useradd -g dinstall -m -d /home/dmdba -s /bin/bash dmdba
 echo 'dmdba ALL=(ALL) ALL' >> /etc/sudoers
@@ -474,16 +473,65 @@ passwd dmdba
 
 #### 安装数据库
 使用上一步创建新建的用户登录，执行数据库安装
-```
+```sh
 mkdir /mnt/cdrom
 mount /dev/cdrom /mnt/cdrom
 chmod a+rx dmdbms-8.2-1.x86_64.rpm
 sudo rpm -ivh dmdbms-8.2-1.x86_64.rpm
 ```
 
-```
+```sh
 sudo ./dminit PATH=/var/dmdbms PAGE_SIZE=16
 ```
 
 ### 安装和配置Nacos
 #### 下载软件
+
+```sh
+wget https://github.com/alibaba/nacos/releases/download/1.3.0/nacos-server-1.3.0.tar.gz
+```
+
+#### 安装软件
+
+```sh
+tar -zxf nacos-server-*.tar.gz -C /usr/local
+sudo chown -R cplm: /usr/local/nacos
+```
+
+#### 注册系统服务
+
+新建systemd文件/usr/lib/systemd/system/nacos.service
+
+```sh
+sudo vi /usr/lib/systemd/system/nacos.service
+```
+
+文件内容如下
+
+```sh
+[Unit]
+Description=The nacos server
+After=syslog.target network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+ExecStart=/usr/local/nacos/bin/startup.sh -m standalone
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+
+#### 启动服务
+
+```sh
+sudo systemctl daemon-reload
+sudo systemctl enable nacos
+sudo systemctl start nacos
+```
+
+#### 检查运行状态
+
+访问[http://localhost:8848/nacos](http://localhost:8848/nacos)，使用默认用户nacos/nacosd登录
