@@ -1,5 +1,4 @@
 
-
     ```sh
     npm install -g gatsby
     git clone https://github.com/corilead/cplm-docs.git
