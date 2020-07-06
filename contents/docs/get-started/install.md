@@ -494,7 +494,7 @@ wget https://github.com/alibaba/nacos/releases/download/1.3.0/nacos-server-1.3.0
 #### 安装软件
 
 ```sh
-tar -zxf nacos-server-*.tar.gz -C /usr/local
+sudo tar -zxf nacos-server-*.tar.gz -C /usr/local
 sudo chown -R cplm: /usr/local/nacos
 ```
 
