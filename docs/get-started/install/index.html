@@ -55,14 +55,14 @@
 </ul>
 <h3 id="安装第三方类库" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E7%AC%AC%E4%B8%89%E6%96%B9%E7%B1%BB%E5%BA%93" aria-label="安装第三方类库 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装第三方类库</h3>
 <h4 id="下载软件" style="position:relative;"><a href="#%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6" aria-label="下载软件 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>下载软件</h4>
-<pre><code>wget https://access.cdn.redhat.com/content/origin/rpms/socat/1.7.3.2/2.el7/fd431d51/socat-1.7.3.2-2.el7.x86_64.rpm?user=&#x26;_auth_=1593997397_05703a7853c98e2a8bd5c825262963fe
+<pre><code class="language-sh">wget https://access.cdn.redhat.com/content/origin/rpms/socat/1.7.3.2/2.el7/fd431d51/socat-1.7.3.2-2.el7.x86_64.rpm?user=&#x26;_auth_=1593997397_05703a7853c98e2a8bd5c825262963fe
 </code></pre>
 <p>安装</p>
-<pre><code>sudo yum -y install socat-*.ramp
+<pre><code class="language-sh">sudo yum -y install socat-*.ramp
 </code></pre>
 <h3 id="创建操作系统用户" style="position:relative;"><a href="#%E5%88%9B%E5%BB%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7" aria-label="创建操作系统用户 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>创建操作系统用户</h3>
 <p>以root用户登录，创建用户并设置密码</p>
-<pre><code>echo 'cplm ALL=(ALL) ALL' >> /etc/sudoers
+<pre><code class="language-sh">echo 'cplm ALL=(ALL) ALL' >> /etc/sudoers
 groupadd cinstall
 useradd -g cinstall cplm
 passwd cplm
@@ -83,20 +83,20 @@ cplm              soft    stack   10240
 <li>下载<a href="https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm">erlang 23.0.2</a></li>
 <li>
 <p>下载<a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm">RabbitMQ 3.8.5</a></p>
-<pre><code>wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
+<pre><code class="language-sh">wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm
 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm
 </code></pre>
 </li>
 </ul>
 <h4 id="安装rabbitmq" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85rabbitmq" aria-label="安装rabbitmq permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装RabbitMQ</h4>
-<pre><code>sudo chmod +x erlang-*.rpm
+<pre><code class="language-sh">sudo chmod +x erlang-*.rpm
 sudo yum -y install erlang-*.rpm
 sudo chmod +x rabbitmq-server-*.noarch.rpm
 sudo yum -y install rabbitmq-server-*.noarch.rpm
 sudo service rabbitmq-server start
 </code></pre>
 <h4 id="启用管理控制台" style="position:relative;"><a href="#%E5%90%AF%E7%94%A8%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0" aria-label="启用管理控制台 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启用管理控制台</h4>
-<pre><code>sudo rabbitmq-plugins enable rabbitmq_management
+<pre><code class="language-sh">sudo rabbitmq-plugins enable rabbitmq_management
 sudo service rabbitmq-server restart
 </code></pre>
 <h4 id="创建用户" style="position:relative;"><a href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7" aria-label="创建用户 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>创建用户</h4>
@@ -116,12 +116,12 @@ sudo rabbitmqctl set_permissions -p '/' 'cplm' '.*' '.*' '.*'
 <ul>
 <li>
 <p>下载<a href="http://download.redis.io/releases/redis-5.0.8.tar.gz">Redis 5.0.8</a></p>
-<pre><code>wget http://download.redis.io/releases/redis-5.0.8.tar.gz
+<pre><code class="language-sh">wget http://download.redis.io/releases/redis-5.0.8.tar.gz
 </code></pre>
 </li>
 </ul>
 <h4 id="安装redis" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85redis" aria-label="安装redis permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Redis</h4>
-<pre><code>tar xvzf redis-*.tar.gz
+<pre><code class="language-sh">tar xvzf redis-*.tar.gz
 cd redis-*
 sudo make install MALLOC=libc
 
@@ -176,22 +176,22 @@ PONG
 <ul>
 <li>
 <p>下载<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz">ElasticSearch 6.4.3</a></p>
-<pre><code>wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
+<pre><code class="language-sh">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
 </code></pre>
 </li>
 </ul>
 <h4 id="安装elasticsearch" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85elasticsearch" aria-label="安装elasticsearch permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装ElasticSearch</h4>
-<pre><code>sudo tar -xzf elasticsearch-*.tar.gz -C /usr/local
+<pre><code class="language-sh">sudo tar -xzf elasticsearch-*.tar.gz -C /usr/local
 sudo mv /usr/local/elasticsearch-* /usr/local/elasticsearch
 sudo chown -R cplm: /usr/local/elasticsearch
 </code></pre>
 <h4 id="启用用户认证" style="position:relative;"><a href="#%E5%90%AF%E7%94%A8%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81" aria-label="启用用户认证 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启用用户认证</h4>
 <h4 id="注册系统服务" style="position:relative;"><a href="#%E6%B3%A8%E5%86%8C%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1" aria-label="注册系统服务 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注册系统服务</h4>
 <p>新建systemd文件/usr/lib/systemd/system/elasticsearch.service</p>
-<pre><code>sudo vi /usr/lib/systemd/system/elasticsearch.service
+<pre><code class="language-sh">sudo vi /usr/lib/systemd/system/elasticsearch.service
 </code></pre>
 <p>文件内容如下</p>
-<pre><code>[Unit]
+<pre><code class="language-sh">[Unit]
 Description=Elasticsearch
 Documentation=http://www.elastic.co
 Wants=network-online.target
@@ -234,7 +234,7 @@ SuccessExitStatus=143
 WantedBy=multi-user.target
 </code></pre>
 <h4 id="启动服务-1" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-1" aria-label="启动服务 1 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动服务</h4>
-<pre><code>sudo systemctl daemon-reload
+<pre><code class="language-sh">sudo systemctl daemon-reload
 sudo systemctl enable elasticsearch
 sudo systemctl start elasticsearch
 </code></pre>
@@ -245,20 +245,20 @@ sudo systemctl start elasticsearch
 <ul>
 <li>下载<a href="https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz">Kibana 6.4.3</a></li>
 </ul>
-<pre><code>wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
+<pre><code class="language-sh">wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
 </code></pre>
 <h4 id="安装kibana" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85kibana" aria-label="安装kibana permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Kibana</h4>
-<pre><code>sudo tar -xzf kibana-*.tar.gz -C /usr/local
+<pre><code class="language-sh">sudo tar -xzf kibana-*.tar.gz -C /usr/local
 sudo mv /usr/local/kibana-* /usr/local/kibana
 sudo chown -R cplm: /usr/local/kibana
 </code></pre>
 <h4 id="启用kibana认证" style="position:relative;"><a href="#%E5%90%AF%E7%94%A8kibana%E8%AE%A4%E8%AF%81" aria-label="启用kibana认证 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启用Kibana认证</h4>
 <h4 id="注册系统服务-1" style="position:relative;"><a href="#%E6%B3%A8%E5%86%8C%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1-1" aria-label="注册系统服务 1 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注册系统服务</h4>
 <p>新建systemd文件/usr/lib/systemd/system/kibana.service</p>
-<pre><code>sudo vi /usr/lib/systemd/system/kibana.service
+<pre><code class="language-sh">sudo vi /usr/lib/systemd/system/kibana.service
 </code></pre>
 <p>文件内容如下</p>
-<pre><code>[Unit]
+<pre><code class="language-sh">[Unit]
 Description=Kibana
 Documentation=http://www.elastic.co
 Wants=network-online.target
@@ -305,7 +305,7 @@ sudo chown -R cplm: /var/log/mongodb
 <pre><code class="language-bash">sudo vi /usr/local/etc/mongod.conf
 </code></pre>
 <p>文件内容如下：</p>
-<pre><code>systemLog:
+<pre><code class="language-properties">systemLog:
   destination: file
   path: /var/log/mongodb/mongo.log
   logAppend: true
@@ -316,10 +316,10 @@ net:
 </code></pre>
 <h4 id="注册系统服务-2" style="position:relative;"><a href="#%E6%B3%A8%E5%86%8C%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1-2" aria-label="注册系统服务 2 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注册系统服务</h4>
 <p>新建systemd文件/usr/lib/systemd/system/mongodb.service</p>
-<pre><code class="language-bash">sudo vi /usr/lib/systemd/system/mongodb.service
+<pre><code class="language-sh">sudo vi /usr/lib/systemd/system/mongodb.service
 </code></pre>
 <p>文件内容如下</p>
-<pre><code>[Unit]
+<pre><code class="language-sh">[Unit]
 Description=MongoDB Database Service
 Wants=network.target
 After=network.target
@@ -337,7 +337,7 @@ StandardError=syslog
 WantedBy=multi-user.target
 </code></pre>
 <h4 id="启动服务-4" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-4" aria-label="启动服务 4 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动服务</h4>
-<pre><code>sudo systemctl daemon-reload
+<pre><code class="language-sh">sudo systemctl daemon-reload
 sudo systemctl enable mongodb
 sudo systemctl start mongodb
 </code></pre>
@@ -349,7 +349,7 @@ sudo systemctl start mongodb
 <li>下载<a href="http://www.openssl.org/source/openssl-1.1.1g.tar.gz">OpenSSL</a></li>
 <li>
 <p>下载<a href="https://nginx.org/download/nginx-1.18.0.tar.gz">Nginx 1.18.0</a></p>
-<pre><code>wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz
+<pre><code class="language-sh">wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz
 wget http://zlib.net/zlib-1.2.11.tar.gz
 wget http://www.openssl.org/source/openssl-1.1.1g.tar.gz
 wget https://nginx.org/download/nginx-1.18.0.tar.gz
@@ -358,28 +358,28 @@ wget https://nginx.org/download/nginx-1.18.0.tar.gz
 </ul>
 <h4 id="安装依赖软件" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E8%BD%AF%E4%BB%B6" aria-label="安装依赖软件 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装依赖软件</h4>
 <p>安装PCER</p>
-<pre><code>tar -zxf pcre-*.tar.gz
+<pre><code class="language-sh">tar -zxf pcre-*.tar.gz
 cd pcre-*
 ./configure
 make
 sudo make install
 </code></pre>
 <p>安装zlib</p>
-<pre><code>tar -zxf zlib-*.tar.gz
+<pre><code class="language-sh">tar -zxf zlib-*.tar.gz
 cd zlib-*
 ./configure
 make
 sudo make install
 </code></pre>
 <p>安装OpenSSL</p>
-<pre><code>tar -zxf openssl-*.tar.gz
+<pre><code class="language-sh">tar -zxf openssl-*.tar.gz
 cd openssl-*
 ./Configure linux-x86_64 --prefix=/usr
 make
 sudo make install
 </code></pre>
 <h4 id="安装nginx" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85nginx" aria-label="安装nginx permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装Nginx</h4>
-<pre><code>tar zxf nginx-*.tar.gz
+<pre><code class="language-sh">tar zxf nginx-*.tar.gz
 cd nginx-*
 ./configure --prefix=/usr/local/nginx --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1g --with-http_ssl_module --with-stream
 make
@@ -387,10 +387,10 @@ sudo make install
 </code></pre>
 <h4 id="注册系统服务-3" style="position:relative;"><a href="#%E6%B3%A8%E5%86%8C%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1-3" aria-label="注册系统服务 3 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注册系统服务</h4>
 <p>新建systemd文件/usr/lib/systemd/system/nginx.service</p>
-<pre><code>sudo vi /usr/lib/systemd/system/nginx.service
+<pre><code class="language-sh">sudo vi /usr/lib/systemd/system/nginx.service
 </code></pre>
 <p>文件内容如下</p>
-<pre><code>[Unit]
+<pre><code class="language-sh">[Unit]
 Description=The NGINX HTTP and reverse proxy server
 After=syslog.target network-online.target remote-fs.target nss-lookup.target
 Wants=network-online.target
@@ -407,7 +407,7 @@ PrivateTmp=true
 WantedBy=multi-user.target
 </code></pre>
 <h4 id="启动服务-5" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-5" aria-label="启动服务 5 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动服务</h4>
-<pre><code>sudo systemctl daemon-reload
+<pre><code class="language-sh">sudo systemctl daemon-reload
 sudo systemctl enable nginx
 sudo systemctl start nginx
 </code></pre>
@@ -418,8 +418,7 @@ sudo systemctl start nginx
 <ul>
 <li>
 <p>下载<a href="https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz">MySQL 8.0</a></p>
-<pre><code>cd ~
-wget https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz
+<pre><code class="language-sh">wget https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz
 </code></pre>
 </li>
 </ul>
@@ -432,7 +431,7 @@ wget https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_
 </ul>
 <h4 id="创建用户和组" style="position:relative;"><a href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84" aria-label="创建用户和组 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>创建用户和组</h4>
 <p>使用root用户登录创建数据库安装用户</p>
-<pre><code>groupadd dinstall
+<pre><code class="language-sh">groupadd dinstall
 useradd -g dinstall -m -d /home/dmdba -s /bin/bash dmdba
 echo 'dmdba ALL=(ALL) ALL' >> /etc/sudoers
 
@@ -440,12 +439,44 @@ passwd dmdba
 </code></pre>
 <h4 id="安装数据库" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93" aria-label="安装数据库 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装数据库</h4>
 <p>使用上一步创建新建的用户登录，执行数据库安装</p>
-<pre><code>mkdir /mnt/cdrom
+<pre><code class="language-sh">mkdir /mnt/cdrom
 mount /dev/cdrom /mnt/cdrom
 chmod a+rx dmdbms-8.2-1.x86_64.rpm
 sudo rpm -ivh dmdbms-8.2-1.x86_64.rpm
 </code></pre>
-<pre><code>sudo ./dminit PATH=/var/dmdbms PAGE_SIZE=16
+<pre><code class="language-sh">sudo ./dminit PATH=/var/dmdbms PAGE_SIZE=16
 </code></pre>
 <h3 id="安装和配置nacos" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEnacos" aria-label="安装和配置nacos permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装和配置Nacos</h3>
-<h4 id="下载软件-8" style="position:relative;"><a href="#%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6-8" aria-label="下载软件 8 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>下载软件</h4></div></div></div></div></div></main><aside class="ant-layout-sider ant-layout-sider-dark" style="flex:0 0 200px;max-width:200px;min-width:200px;width:200px"><div class="ant-layout-sider-children"><div style="position:fixed;top:80px;left:85%;right:10px;bottom:0;overflow:auto"><div style="position:absolute;left:10px;right:0;top:0;bottom:0"><div><div class=""><div class="ant-anchor-wrapper" style="max-height:calc(100vh - 80px)"><div class="ant-anchor"><div class="ant-anchor-ink"><span class="ant-anchor-ink-ball"></span></div></div></div></div></div></div></div></div></aside></section></section></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/docs/get-started/install";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-a4172998ea7f3188235e.js"],"component---src-pages-404-js":["/component---src-pages-404-js-49871a1941e94bb2d348.js"],"component---src-pages-blog-js":["/component---src-pages-blog-js-6665a9a3f133bae0504f.js"],"component---src-pages-index-js":["/component---src-pages-index-js-37d7010025dea065a111.js"],"component---src-templates-post-template-js":["/component---src-templates-post-template-js-bf2364ea6a26457f2299.js"]};/*]]>*/</script><script src="/cplm-docs/webpack-runtime-912d816087af1d40c55d.js" async=""></script><script src="/cplm-docs/styles-2d82ac8e3afc0c213061.js" async=""></script><script src="/cplm-docs/app-a4172998ea7f3188235e.js" async=""></script><script src="/cplm-docs/commons-270de58a2cd83785ea5b.js" async=""></script><script src="/cplm-docs/component---src-templates-post-template-js-bf2364ea6a26457f2299.js" async=""></script><script src="/cplm-docs/aec7d165-94c1115c99b3ab225bff.js" async=""></script><script src="/cplm-docs/framework-8dcecaaefd71e2213eb2.js" async=""></script></body></html>
+<h4 id="下载软件-8" style="position:relative;"><a href="#%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6-8" aria-label="下载软件 8 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>下载软件</h4>
+<pre><code class="language-sh">wget https://github.com/alibaba/nacos/releases/download/1.3.0/nacos-server-1.3.0.tar.gz
+</code></pre>
+<h4 id="安装软件" style="position:relative;"><a href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6" aria-label="安装软件 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装软件</h4>
+<pre><code class="language-sh">tar -zxf nacos-server-*.tar.gz -C /usr/local
+sudo chown -R cplm: /usr/local/nacos
+</code></pre>
+<h4 id="注册系统服务-4" style="position:relative;"><a href="#%E6%B3%A8%E5%86%8C%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1-4" aria-label="注册系统服务 4 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注册系统服务</h4>
+<p>新建systemd文件/usr/lib/systemd/system/nacos.service</p>
+<pre><code class="language-sh">sudo vi /usr/lib/systemd/system/nacos.service
+</code></pre>
+<p>文件内容如下</p>
+<pre><code class="language-sh">[Unit]
+Description=The nacos server
+After=syslog.target network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+ExecStart=/usr/local/nacos/bin/startup.sh -m standalone
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<h4 id="启动服务-6" style="position:relative;"><a href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1-6" aria-label="启动服务 6 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动服务</h4>
+<pre><code class="language-sh">sudo systemctl daemon-reload
+sudo systemctl enable nacos
+sudo systemctl start nacos
+</code></pre>
+<h4 id="检查运行状态-5" style="position:relative;"><a href="#%E6%A3%80%E6%9F%A5%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81-5" aria-label="检查运行状态 5 permalink" class="post-toc-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>检查运行状态</h4>
+<p>访问<a href="http://localhost:8848/nacos">http://localhost:8848/nacos</a>，使用默认用户nacos/nacosd登录</p></div></div></div></div></div></main><aside class="ant-layout-sider ant-layout-sider-dark" style="flex:0 0 200px;max-width:200px;min-width:200px;width:200px"><div class="ant-layout-sider-children"><div style="position:fixed;top:80px;left:85%;right:10px;bottom:0;overflow:auto"><div style="position:absolute;left:10px;right:0;top:0;bottom:0"><div><div class=""><div class="ant-anchor-wrapper" style="max-height:calc(100vh - 80px)"><div class="ant-anchor"><div class="ant-anchor-ink"><span class="ant-anchor-ink-ball"></span></div></div></div></div></div></div></div></div></aside></section></section></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/docs/get-started/install";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-a4172998ea7f3188235e.js"],"component---src-pages-404-js":["/component---src-pages-404-js-49871a1941e94bb2d348.js"],"component---src-pages-blog-js":["/component---src-pages-blog-js-6665a9a3f133bae0504f.js"],"component---src-pages-index-js":["/component---src-pages-index-js-37d7010025dea065a111.js"],"component---src-templates-post-template-js":["/component---src-templates-post-template-js-bf2364ea6a26457f2299.js"]};/*]]>*/</script><script src="/cplm-docs/webpack-runtime-912d816087af1d40c55d.js" async=""></script><script src="/cplm-docs/styles-2d82ac8e3afc0c213061.js" async=""></script><script src="/cplm-docs/app-a4172998ea7f3188235e.js" async=""></script><script src="/cplm-docs/commons-270de58a2cd83785ea5b.js" async=""></script><script src="/cplm-docs/component---src-templates-post-template-js-bf2364ea6a26457f2299.js" async=""></script><script src="/cplm-docs/aec7d165-94c1115c99b3ab225bff.js" async=""></script><script src="/cplm-docs/framework-8dcecaaefd71e2213eb2.js" async=""></script></body></html>
