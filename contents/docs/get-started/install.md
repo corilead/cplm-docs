@@ -19,7 +19,7 @@ wget https://access.cdn.redhat.com/content/origin/rpms/socat/1.7.3.2/2.el7/fd431
 安装
 
 ```sh
-sudo yum -y install socat-*.ramp
+sudo yum -y install socat-*.rpm
 ```
 
 
