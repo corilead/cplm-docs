@@ -13,13 +13,39 @@ showTitle: true
 #### 下载软件
 
 ```sh
-wget https://access.cdn.redhat.com/content/origin/rpms/socat/1.7.3.2/2.el7/fd431d51/socat-1.7.3.2-2.el7.x86_64.rpm?user=&_auth_=1593997397_05703a7853c98e2a8bd5c825262963fe
+wget http://mirror.centos.org/centos/7/os/x86_64/Packages/socat-1.7.3.2-2.el7.x86_64.rpm
 ```
 
 安装
 
 ```sh
 sudo yum -y install socat-*.rpm
+```
+
+### 安装OpenJDK
+
+下载软件
+
+```sh
+wget http://mirror.centos.org/centos/7/os/x86_64/Packages/java-1.8.0-openjdk-devel-1.8.0.242.b08-1.el7.x86_64.rpm
+```
+
+安装OpenJDK
+
+```sh
+sudo yum -y install java-1.8.0-openjdk-devel-*.rpm
+```
+
+设置环境变量
+
+```sh
+echo 'JAVA_HOME=xxx' >> /etc/profile
+```
+
+选择JDK版本
+
+```
+sudo alternatives --config java
 ```
 
 
@@ -46,6 +72,12 @@ cplm              soft    stack   10240
 
 ## 自动安装
 
+```sh
+wget -O - https://raw.githubusercontent.com/corilead/cplm-docs/master/scripts/install.sh | bash
+```
+
+
+
 ## 手动安装
 
 ### 安装和配置RabbitMQ
@@ -63,13 +95,13 @@ sudo chmod +x erlang-*.rpm
 sudo chmod +x rabbitmq-server-*.noarch.rpm
 sudo yum -y install erlang-*.rpm
 sudo yum -y install rabbitmq-server-*.noarch.rpm
-sudo service rabbitmq-server start
+sudo systemctl start rabbitmq-server
 ```
 
 #### 启用管理控制台
 ```sh
 sudo rabbitmq-plugins enable rabbitmq_management
-sudo service rabbitmq-server restart
+sudo systemctl restart rabbitmq-server
 ```
 
 #### 创建用户
@@ -167,13 +199,8 @@ sudo chown -R cplm: /usr/local/elasticsearch
 #### 启用用户认证
 
 #### 注册系统服务
-新建systemd文件/usr/lib/systemd/system/elasticsearch.service
 ```sh
-sudo vi /usr/lib/systemd/system/elasticsearch.service
-```
-
-文件内容如下
-```sh
+sudo bash -c 'cat << EOF > /tmp/elasticsearch.service
 [Unit]
 Description=Elasticsearch
 Documentation=http://www.elastic.co
@@ -215,6 +242,7 @@ SuccessExitStatus=143
 
 [Install]
 WantedBy=multi-user.target
+EOF'
 ```
 
 #### 启动服务
@@ -250,15 +278,8 @@ sudo chown -R cplm: /usr/local/kibana
 
 #### 注册系统服务
 
-新建systemd文件/usr/lib/systemd/system/kibana.service
-
 ```sh
-sudo vi /usr/lib/systemd/system/kibana.service
-```
-
-文件内容如下
-
-```sh
+sudo bash -c 'cat << EOF > /usr/lib/systemd/system/kibana.service
 [Unit]
 Description=Kibana
 Documentation=http://www.elastic.co
@@ -273,6 +294,7 @@ ExecStart=/usr/share/kibana/bin/kibana
 
 [Install]
 WantedBy=multi-user.target
+EOF'
 ```
 
 #### 启动服务
@@ -286,8 +308,6 @@ sudo systemctl start kibana
 #### 检查运行状态
 
 访问[localhost:5601/status](localhost:5601/status)，页面显示Kibana状态信息。
-
-#### 启动服务
 
 
 ### 安装和配置MongoDB
@@ -309,14 +329,9 @@ sudo chown -R cplm: /var/lib/mongodb
 sudo chown -R cplm: /var/log/mongodb
 ```
 
-#### 修改配置
-新建文件/usr/local/etc/mongod.conf
-```bash
-sudo vi /usr/local/etc/mongod.conf
-```
-
-文件内容如下：
+#### 创建配置文件
 ```properties
+sudo bash -c 'cat << EOF > /usr/local/etc/mongod.conf
 systemLog:
   destination: file
   path: /var/log/mongodb/mongo.log
@@ -325,16 +340,12 @@ storage:
   dbPath: /var/lib/mongodb
 net:
   bindIpAll: true
+EOF'
 ```
 
 #### 注册系统服务
-新建systemd文件/usr/lib/systemd/system/mongodb.service
 ```sh
-sudo vi /usr/lib/systemd/system/mongodb.service
-```
-
-文件内容如下
-```sh
+sudo bash -c 'cat << EOF > /usr/lib/systemd/system/mongodb.service
 [Unit]
 Description=MongoDB Database Service
 Wants=network.target
@@ -351,6 +362,7 @@ StandardError=syslog
 
 [Install]
 WantedBy=multi-user.target
+EOF'
 ```
 
 #### 启动服务
@@ -411,13 +423,8 @@ sudo make install
 ```
 
 #### 注册系统服务
-新建systemd文件/usr/lib/systemd/system/nginx.service
 ```sh
-sudo vi /usr/lib/systemd/system/nginx.service
-```
-
-文件内容如下
-```sh
+sudo bash -c 'cat << EOF > /usr/lib/systemd/system/nginx.service
 [Unit]
 Description=The NGINX HTTP and reverse proxy server
 After=syslog.target network-online.target remote-fs.target nss-lookup.target
@@ -433,6 +440,7 @@ PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
+EOF'
 ```
 
 #### 启动服务
@@ -456,33 +464,6 @@ wget https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_
 #### 安装MySQL
 
 
-### 安装和配置达梦
-#### 前提条件
-- 达梦8安装软件
-- 达梦8许可文件
-
-#### 创建用户和组
-使用root用户登录创建数据库安装用户
-```sh
-groupadd dinstall
-useradd -g dinstall -m -d /home/dmdba -s /bin/bash dmdba
-echo 'dmdba ALL=(ALL) ALL' >> /etc/sudoers
-
-passwd dmdba
-```
-
-#### 安装数据库
-使用上一步创建新建的用户登录，执行数据库安装
-```sh
-mkdir /mnt/cdrom
-mount /dev/cdrom /mnt/cdrom
-chmod a+rx dmdbms-8.2-1.x86_64.rpm
-sudo rpm -ivh dmdbms-8.2-1.x86_64.rpm
-```
-
-```sh
-sudo ./dminit PATH=/var/dmdbms PAGE_SIZE=16
-```
 
 ### 安装和配置Nacos
 #### 下载软件
@@ -500,15 +481,8 @@ sudo chown -R cplm: /usr/local/nacos
 
 #### 注册系统服务
 
-新建systemd文件/usr/lib/systemd/system/nacos.service
-
 ```sh
-sudo vi /usr/lib/systemd/system/nacos.service
-```
-
-文件内容如下
-
-```sh
+sudo bash -c 'cat << EOF > /usr/lib/systemd/system/nacos.service
 [Unit]
 Description=The nacos server
 After=syslog.target network-online.target remote-fs.target nss-lookup.target
@@ -522,6 +496,7 @@ PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
+EOF'
 ```
 
 #### 启动服务
@@ -534,4 +509,4 @@ sudo systemctl start nacos
 
 #### 检查运行状态
 
-访问[http://localhost:8848/nacos](http://localhost:8848/nacos)，使用默认用户nacos/nacosd登录
+访问[http://localhost:8848/nacos](http://localhost:8848/nacos)，使用默认用户nacos/nacos登录
