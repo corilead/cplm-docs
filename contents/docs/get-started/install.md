@@ -324,7 +324,7 @@ systemLog:
 storage:
   dbPath: /var/lib/mongodb
 net:
-  bindIp: 127.0.0.1
+  bindIpAll: true
 ```
 
 #### 注册系统服务
