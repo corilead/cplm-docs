@@ -1,6 +1,8 @@
-#### title: "系统安装配置(Linux)"
+---
+title: 系统安装配置(Linux)
 sidebar: Docs
 showTitle: true
+---
 
 ## 准备工作
 - 安装CentOS 7.x
@@ -12,6 +14,12 @@ showTitle: true
 
 ```
 wgeet https://access.cdn.redhat.com/content/origin/rpms/socat/1.7.3.2/2.el7/fd431d51/socat-1.7.3.2-2.el7.x86_64.rpm?user=&_auth_=1593997397_05703a7853c98e2a8bd5c825262963fe
+```
+
+安装
+
+```
+sudo yum -y install socat-*.ramp
 ```
 
 

@@ -21,10 +21,7 @@
     "entry": "Guide",
     "name": "Guide",
     "items": [
-      "docs/guide/anchor",
-      "docs/guide/contents",
-      "docs/guide/menu-items",
-      "docs/guide/sidebar"
+      "docs/guide/guidelines"
     ]
   },
   {
