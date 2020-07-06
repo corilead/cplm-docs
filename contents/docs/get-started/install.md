@@ -60,8 +60,8 @@ wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbit
 #### 安装RabbitMQ
 ```sh
 sudo chmod +x erlang-*.rpm
-sudo yum -y install erlang-*.rpm
 sudo chmod +x rabbitmq-server-*.noarch.rpm
+sudo yum -y install erlang-*.rpm
 sudo yum -y install rabbitmq-server-*.noarch.rpm
 sudo service rabbitmq-server start
 ```
@@ -184,7 +184,7 @@ After=network-online.target
 PrivateTmp=true
 User=cplm
 
-ExecStart=/usr/share/elasticsearch/bin/elasticsearch -p /usr/share/elasticsearch/logs/elasticsearch.pid --quiet
+ExecStart=/usr/local/elasticsearch/bin/elasticsearch -p /usr/local/elasticsearch/logs/elasticsearch.pid --quiet
 
 # Specifies the maximum file descriptor number that can be opened by this process
 LimitNOFILE=65536
