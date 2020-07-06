@@ -13,7 +13,7 @@ showTitle: true
 #### 下载软件
 
 ```
-wgeet https://access.cdn.redhat.com/content/origin/rpms/socat/1.7.3.2/2.el7/fd431d51/socat-1.7.3.2-2.el7.x86_64.rpm?user=&_auth_=1593997397_05703a7853c98e2a8bd5c825262963fe
+wget https://access.cdn.redhat.com/content/origin/rpms/socat/1.7.3.2/2.el7/fd431d51/socat-1.7.3.2-2.el7.x86_64.rpm?user=&_auth_=1593997397_05703a7853c98e2a8bd5c825262963fe
 ```
 
 安装
@@ -342,7 +342,6 @@ After=network.target
 
 [Service]
 Type=forking
-PIDFile=/var/run/mongodb/mongod.pid
 ExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/etc/mongod.conf --fork
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
