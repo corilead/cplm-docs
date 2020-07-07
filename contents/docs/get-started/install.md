@@ -130,13 +130,12 @@ wget http://download.redis.io/releases/redis-5.0.8.tar.gz
 
 #### 安装Redis
 ```sh
-tar xvzf redis-*.tar.gz
+tar -zxf redis-*.tar.gz
 cd redis-*
 sudo make install MALLOC=libc
 
-sudo mkdir /etc/redis
-sudo mkdir /var/redis
-sudo mkdir /var/redis/6379
+sudo mkdir -p /var/redis
+sudo mkdir -p /var/redis/6379
 sudo cp utils/redis_init_script /etc/init.d/redis_6379
 sudo cp redis.conf /etc/redis/6379.conf
 ```
@@ -191,7 +190,7 @@ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.ta
 
 #### 安装ElasticSearch
 ```sh
-sudo tar -xzf elasticsearch-*.tar.gz -C /usr/local
+sudo tar -zxf elasticsearch-*.tar.gz -C /usr/local
 sudo mv /usr/local/elasticsearch-* /usr/local/elasticsearch
 sudo chown -R cplm: /usr/local/elasticsearch
 ```
@@ -269,7 +268,7 @@ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar
 #### 安装Kibana
 
 ```sh
-sudo tar -xzf kibana-*.tar.gz -C /usr/local
+sudo tar -zxf kibana-*.tar.gz -C /usr/local
 sudo mv /usr/local/kibana-* /usr/local/kibana
 sudo chown -R cplm: /usr/local/kibana
 ```
@@ -319,7 +318,7 @@ wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz
 
 #### 安装MongoDB
 ```bash
-sudo tar -zxvf mongodb-linux-*.tgz -C /usr/local
+sudo tar -zxf mongodb-linux-*.tgz -C /usr/local
 sudo mv /usr/local/mongodb-* /usr/local/mongodb
 sudo chown -R cplm: /usr/local/mongodb
 
@@ -415,7 +414,7 @@ sudo make install
 
 #### 安装Nginx
 ```sh
-tar zxf nginx-*.tar.gz
+tar -zxf nginx-*.tar.gz
 cd nginx-*
 ./configure --prefix=/usr/local/nginx --with-pcre=../pcre-8.44 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.1.1g --with-http_ssl_module --with-stream
 make
@@ -491,7 +490,7 @@ Wants=network-online.target
 [Service]
 Type=forking
 ExecStart=/usr/local/nacos/bin/startup.sh -m standalone
-ExecStop=/bin/kill -s QUIT $MAINPID
+ExecStop=/usr/local/nacos/bin/shutdown.sh
 PrivateTmp=true
 
 [Install]
