@@ -8,17 +8,40 @@ showTitle: true
 - 安装CentOS 7.x
 - 安装Development Tools
 
-### 安装第三方类库
+## 创建操作系统用户
 
-#### 下载软件
+以root用户登录，创建用户并设置密码
+
+```sh
+echo 'cplm ALL=(ALL) ALL' >> /etc/sudoers
+groupadd cinstall
+useradd -g cinstall cplm
+passwd cplm
+```
+
+将以下配置添加到“/etc/security/limits.conf”文件
+
+```
+cplm              soft    nproc   2047
+cplm              hard    nproc   16384
+cplm              soft    nofile  4096
+cplm              hard    nofile  65536
+cplm              soft    stack   10240 
+```
+
+## 自动安装
+
+```sh
+wget -O - http://git.corilead.com/cplm/cplm-cloud-deploy/raw/master/scripts/install.sh | bash
+```
+
+## 手动安装
+
+### 安装第三方类库
 
 ```sh
 wget http://mirror.centos.org/centos/7/os/x86_64/Packages/socat-1.7.3.2-2.el7.x86_64.rpm
-```
 
-安装
-
-```sh
 sudo yum -y install socat-*.rpm
 ```
 
@@ -33,54 +56,18 @@ wget http://mirror.centos.org/centos/7/os/x86_64/Packages/java-1.8.0-openjdk-dev
 安装OpenJDK
 
 ```sh
-sudo yum -y install java-1.8.0-openjdk-devel-*.rpm
+yum -y install java-1.8.0-openjdk-devel-*.rpm
 ```
 
 设置环境变量
 
 ```sh
-echo 'JAVA_HOME=xxx' >> /etc/profile
+echo export JAVA_HOME='$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")' | tee /etc/profile.d/java_home.sh > /dev/null
+source /etc/source
 ```
-
-选择JDK版本
-
-```
-sudo alternatives --config java
-```
-
-
-
-### 创建操作系统用户
-
-以root用户登录，创建用户并设置密码
-```sh
-echo 'cplm ALL=(ALL) ALL' >> /etc/sudoers
-groupadd cinstall
-useradd -g cinstall cplm
-passwd cplm
-```
-将以下配置添加到“/etc/security/limits.conf”文件
-```
-cplm              soft    nproc   2047
-cplm              hard    nproc   16384
-cplm              soft    nofile  4096
-cplm              hard    nofile  65536
-cplm              soft    stack   10240 
-```
-
-**注意：以下操作如无特殊说明，均以cplm用户操作。**
-
-## 自动安装
-
-```sh
-wget -O - https://raw.githubusercontent.com/corilead/cplm-docs/master/scripts/install.sh | bash
-```
-
-
-
-## 手动安装
 
 ### 安装和配置RabbitMQ
+
 #### 下载软件
 - 下载[erlang 23.0.2](https://github.com/rabbitmq/erlang-rpm/releases/download/v23.0.2/erlang-23.0.2-1.el7.x86_64.rpm)
 - 下载[RabbitMQ 3.8.5](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm)
@@ -95,6 +82,9 @@ sudo chmod +x erlang-*.rpm
 sudo chmod +x rabbitmq-server-*.noarch.rpm
 sudo yum -y install erlang-*.rpm
 sudo yum -y install rabbitmq-server-*.noarch.rpm
+
+sudo systemctl daemon-reload
+sudo systemctl enable rabbitmq-server
 sudo systemctl start rabbitmq-server
 ```
 
