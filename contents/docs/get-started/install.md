@@ -31,9 +31,15 @@ cplm              soft    stack   10240
 
 ## 自动安装
 
+### 执行安装脚本
+
 ```sh
 wget -O - http://git.corilead.com/cplm/cplm-cloud-deploy/raw/master/scripts/install.sh | bash
 ```
+
+### 检查运行状态
+
+参照手动安装各章节的检查运行状态步骤。
 
 ## 手动安装
 
@@ -451,6 +457,30 @@ wget https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_
 ```
 
 #### 安装MySQL
+
+```sh
+groupadd mysql
+useradd -r -g mysql -s /bin/false mysql
+cd /usr/local
+tar zxvf /path/to/mysql-VERSION-OS.tar.gz
+ln -s full-path-to-mysql-VERSION-OS mysql
+cd mysql
+mkdir mysql-files
+chown mysql:mysql mysql-files
+chmod 750 mysql-files
+bin/mysqld --initialize --user=mysql
+bin/mysql_ssl_rsa_setup
+bin/mysqld_safe --user=mysql &
+cp support-files/mysql.server /etc/init.d/mysql
+chmod +x /etc/init.d/mysql
+chkconfig --add mysql
+```
+
+
+
+```
+systemctl start mysqld
+```
 
 
 
