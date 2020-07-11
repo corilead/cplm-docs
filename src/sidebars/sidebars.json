@@ -21,7 +21,8 @@
     "entry": "Guide",
     "name": "Guide",
     "items": [
-      "docs/guide/guidelines"
+      "docs/guide/guidelines",
+      "docs/guide/links"
     ]
   },
   {

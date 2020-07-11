@@ -8,27 +8,6 @@ showTitle: true
 - 安装CentOS 7.x
 - 安装Development Tools
 
-## 创建操作系统用户
-
-以root用户登录，创建用户并设置密码
-
-```sh
-echo 'cplm ALL=(ALL) ALL' >> /etc/sudoers
-groupadd cinstall
-useradd -g cinstall cplm
-passwd cplm
-```
-
-将以下配置添加到“/etc/security/limits.conf”文件
-
-```
-cplm              soft    nproc   2047
-cplm              hard    nproc   16384
-cplm              soft    nofile  4096
-cplm              hard    nofile  65536
-cplm              soft    stack   10240 
-```
-
 ## 自动安装
 
 ### 执行安装脚本
@@ -285,7 +264,7 @@ After=network-online.target
 PrivateTmp=true
 User=cplm
 
-ExecStart=/usr/share/kibana/bin/kibana
+ExecStart=/usr/local/kibana/bin/kibana
 
 [Install]
 WantedBy=multi-user.target
