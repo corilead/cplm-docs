@@ -19,6 +19,9 @@ showTitle: true
 
 #### Windows
 
+1. 下载MySQL安装文件[mysql-installer-community-8.0.20.0.msi](https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-8.0.20.0.msi)
+2. 双击mysql-installer-community-8.0.20.0.msi文件，按照默认步骤安装
+
 #### Linux/Unix/Mac
 
 ```
@@ -35,8 +38,6 @@ mysql> CREATE USER 'cplm_auth'@'%' IDENTIFIED BY 'cplm_auth';
 mysql> GRANT ALL PRIVILEGES ON cplm_auth.* TO 'cplm_auth'@'%';
 mysql> exit
 ```
-
-
 
 ### 新建示例服务数据库和用户
 
