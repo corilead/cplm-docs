@@ -18,9 +18,10 @@ showTitle: true
 
 ```
 git clone http://git.corilead.com/cplm/cplm-cloud-samples.git
+cd cplm-cloud-samples
 mvnw clean package -s settings.xml
-cd cplm-cloud-samples/target
-java -DCPLM_NACOS_SERVER=nacos.corilead.com -jar clpm-cloud-samples-app.jar
+cd cplm-cloud-samples-app/target
+java -DCPLM_NACOS_SERVER=nacos.corilead.com -jar cplm-cloud-samples-app.jar
 ```
 
-浏览器访问http://localhost:8080
+浏览器访问[http://localhost:8080](http://localhost:8080)
