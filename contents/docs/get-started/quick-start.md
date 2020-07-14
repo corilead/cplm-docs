@@ -39,6 +39,17 @@ mysql> GRANT ALL PRIVILEGES ON cplm_auth.* TO 'cplm_auth'@'%';
 mysql> exit
 ```
 
+### 新建平台服务数据库和用户
+
+```sql
+mysql -uroot -p
+
+mysql> CREATE DATABASE cplm_platform DEFAULT CHARACTER SET utf8mb4;
+mysql> CREATE USER 'cplm_platform'@'%' IDENTIFIED BY 'cplm_platform';
+mysql> GRANT ALL PRIVILEGES ON cplm_platform.* TO 'cplm_platform'@'%';
+mysql> exit
+```
+
 ### 新建示例服务数据库和用户
 
 ```sql
@@ -88,13 +99,27 @@ spring.datasource.password=cplm-uaa
 spring.datasource.driver-class-name=com.mysql.jdbc.Drive
 ```
 
+#### 新建平台服务的配置
+
+1. 浏览器访问[http://localhost:8084/nacos](http://localhost:8084/nacos)
+2. 进入配置管理 > 配置列表,点击**新建配置**图标
+3. Data ID输入**cplm-cloud-platform.properties**，配置格式选择 **Properties**，输入以下配置内容，点击**发布**按钮
+
+```properties
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+spring.datasource.url=jdbc:mysql://localhost:3306/cplm-platform?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+spring.datasource.username=cplm-platform
+spring.datasource.password=cplm-platform
+spring.datasource.driver-class-name=com.mysql.jdbc.Drive
+```
+
 #### 新建示例服务的配置
 
 1. 浏览器访问[http://localhost:8084/nacos](http://localhost:8084/nacos)
 2. 进入配置管理 > 配置列表,点击**新建配置**图标
 3. Data ID输入**cplm-cloud-samples.properties**，配置格式选择 **Properties**，输入以下配置内容，点击**发布**按钮
 
-```sh
+```properties
 spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
 spring.datasource.url=jdbc:mysql://localhost:3306/cplm-samples?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
 spring.datasource.username=cplm-samples
@@ -106,9 +131,7 @@ spring.datasource.driver-class-name=com.mysql.jdbc.Drive
 
 ### 启动认证项目
 
-### 启动网关服务
-
-### 启动基础服务
+### 启动平台服务
 
 ### 启动示例项目
 

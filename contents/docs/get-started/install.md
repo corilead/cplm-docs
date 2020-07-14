@@ -10,10 +10,23 @@ showTitle: true
 
 ## 自动安装
 
-### 执行安装脚本
+### 在线安装
 
 ```sh
 wget -O - http://git.corilead.com/cplm/cplm-cloud-deploy/raw/master/scripts/install.sh | bash
+```
+
+### 离线安装
+
+1. 参照手动安装各章节的下载软件部分，将安装软件下载并上传到服务器的用户主目录下
+2. 克隆项目[http://git.corilead.com/cplm/cplm-cloud-deploy.git](http://git.corilead.com/cplm/cplm-cloud-deploy.git)，并上传到服务器的用户主目录下
+3. 执行安装脚本
+
+```sh
+cd ~
+cd cplm-cloud-deploy/script
+sudo chmod +x *.sh
+sudo ./install-local.sh
 ```
 
 ### 检查运行状态
@@ -26,7 +39,6 @@ wget -O - http://git.corilead.com/cplm/cplm-cloud-deploy/raw/master/scripts/inst
 
 ```sh
 wget http://mirror.centos.org/centos/7/os/x86_64/Packages/socat-1.7.3.2-2.el7.x86_64.rpm
-
 sudo yum -y install socat-*.rpm
 ```
 
