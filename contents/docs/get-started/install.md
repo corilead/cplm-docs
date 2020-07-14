@@ -479,7 +479,7 @@ systemctl start mysqld
 #### 下载软件
 
 ```sh
-wget https://github.com/alibaba/nacos/releases/download/1.3.0/nacos-server-1.3.0.tar.gz
+wget https://github.com/alibaba/nacos/releases/download/1.3.1/nacos-server-1.3.1.tar.gz
 ```
 
 #### 安装软件
