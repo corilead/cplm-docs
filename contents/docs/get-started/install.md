@@ -25,8 +25,8 @@ wget -O - http://git.corilead.com/cplm/cplm-cloud-deploy/raw/master/scripts/inst
 ```sh
 cd ~
 cd cplm-cloud-deploy/script
-sudo chmod +x *.sh
-sudo ./install-local.sh
+chmod +x *.sh
+./install-local.sh
 ```
 
 ### 检查运行状态
