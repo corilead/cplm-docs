@@ -24,7 +24,7 @@ wget -O - http://git.corilead.com/cplm/cplm-cloud-deploy/raw/master/scripts/inst
 
 ```sh
 cd ~
-cd cplm-cloud-deploy/script
+cd cplm-cloud-deploy/scripts
 chmod +x *.sh
 ./install-local.sh
 ```
@@ -59,8 +59,8 @@ yum -y install java-1.8.0-openjdk-devel-*.rpm
 设置环境变量
 
 ```sh
-echo export JAVA_HOME='$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")' | tee /etc/profile.d/java_home.sh > /dev/null
-source /etc/source
+echo export JAVA_HOME="$(readlink -f /usr/bin/javac | sed 's:/bin/javac::')" | tee /etc/profile.d/java_home.sh > /dev/null
+source /etc/profile
 ```
 
 ### 安装和配置RabbitMQ
@@ -180,6 +180,11 @@ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.ta
 sudo tar -zxf elasticsearch-*.tar.gz -C /usr/local
 sudo mv /usr/local/elasticsearch-* /usr/local/elasticsearch
 sudo chown -R cplm: /usr/local/elasticsearch
+
+echo "network.host: 0.0.0.0" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
+echo "http.cors.enabled: true" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
+echo "http.cors.allow-origin: \"*\"" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
+echo "http.cors.allow-headers: Authorization" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
 ```
 
 #### 启用用户认证
@@ -258,6 +263,8 @@ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar
 sudo tar -zxf kibana-*.tar.gz -C /usr/local
 sudo mv /usr/local/kibana-* /usr/local/kibana
 sudo chown -R cplm: /usr/local/kibana
+
+echo "server.host: 0.0.0.0" | sudo tee -a /usr/local/kibana/config/kibana.yml > /dev/null
 ```
 
 #### 启用Kibana认证
