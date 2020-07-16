@@ -19,7 +19,7 @@ spring.datasource.password=<name>
 ```
 spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
 
-spring.datasource.driver-class-name=dm.jdbc.driver.DmDriver
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.datasource.url=jdbc:mysql://localhost:3306/cplm?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
 spring.datasource.username=<username>
 spring.datasource.password=<name>

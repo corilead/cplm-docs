@@ -177,9 +177,12 @@ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.ta
 
 #### 安装ElasticSearch
 ```sh
+sudo groupadd -r elasticsearch
+sudo useradd -r -g elasticsearch -s /bin/false elasticsearch
+
 sudo tar -zxf elasticsearch-*.tar.gz -C /usr/local
-sudo mv /usr/local/elasticsearch-* /usr/local/elasticsearch
-sudo chown -R cplm: /usr/local/elasticsearch
+sudo ln -s /usr/local/elasticsearch-* /usr/local/elasticsearch
+sudo chown -R elasticsearch:elasticsearch /usr/local/elasticsearch-*
 
 echo "network.host: 0.0.0.0" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
 echo "http.cors.enabled: true" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
@@ -200,7 +203,8 @@ After=network-online.target
 
 [Service]
 PrivateTmp=true
-User=cplm
+User=elasticsearch
+Group=elasticsearch
 
 ExecStart=/usr/local/elasticsearch/bin/elasticsearch -p /usr/local/elasticsearch/logs/elasticsearch.pid --quiet
 
@@ -260,9 +264,12 @@ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar
 #### 安装Kibana
 
 ```sh
+sudo groupadd -r kibana
+sudo useradd -r -g kibana -s /bin/false kibana
+
 sudo tar -zxf kibana-*.tar.gz -C /usr/local
-sudo mv /usr/local/kibana-* /usr/local/kibana
-sudo chown -R cplm: /usr/local/kibana
+sudo ln -s /usr/local/kibana-* /usr/local/kibana
+sudo chown -R kibana:kibana /usr/local/kibana-*
 
 echo "server.host: 0.0.0.0" | sudo tee -a /usr/local/kibana/config/kibana.yml > /dev/null
 ```
@@ -281,7 +288,8 @@ After=network-online.target
 
 [Service]
 PrivateTmp=true
-User=cplm
+User=kibana
+Group=kibana
 
 ExecStart=/usr/local/kibana/bin/kibana
 
@@ -312,9 +320,12 @@ wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.2.8.tgz
 
 #### 安装MongoDB
 ```bash
+sudo groupadd -r mongodb
+sudo useradd -r -g mongodb -s /bin/false mongodb
+
 sudo tar -zxf mongodb-linux-*.tgz -C /usr/local
-sudo mv /usr/local/mongodb-* /usr/local/mongodb
-sudo chown -R cplm: /usr/local/mongodb
+sudo ln -s /usr/local/mongodb-* /usr/local/mongodb
+sudo chown -R mongodb:mongodb /usr/local/mongodb-*
 
 sudo mkdir -p /var/lib/mongodb
 sudo mkdir -p /var/log/mongodb
@@ -349,7 +360,8 @@ Type=forking
 ExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/etc/mongod.conf --fork
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
-User=cplm
+User=mongodb
+Group=mongodb
 StandardOutput=syslog
 StandardError=syslog
 
