@@ -469,21 +469,20 @@ wget https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_
 #### 安装MySQL
 
 ```sh
-groupadd mysql
-useradd -r -g mysql -s /bin/false mysql
-cd /usr/local
-tar zxvf /path/to/mysql-VERSION-OS.tar.gz
-ln -s full-path-to-mysql-VERSION-OS mysql
-cd mysql
-mkdir mysql-files
-chown mysql:mysql mysql-files
-chmod 750 mysql-files
+sudo groupadd mysql
+sudo useradd -r -g mysql -s /bin/false mysql
+sudo tar zxvf mysql-*-linux-*.tar.gz -C /usr/local
+sudo ln -s /usr/local/mysql-*-linux-* /usr/local/mysql
+cd /usr/local/mysql
+sudo mkdir mysql-files
+sudo chown mysql:mysql mysql-files
+sudo chmod 750 mysql-files
 bin/mysqld --initialize --user=mysql
 bin/mysql_ssl_rsa_setup
 bin/mysqld_safe --user=mysql &
 cp support-files/mysql.server /etc/init.d/mysql
 chmod +x /etc/init.d/mysql
-chkconfig --add mysql
+sudo chkconfig --add mysql
 ```
 
 
