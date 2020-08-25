@@ -194,7 +194,7 @@ echo "http.cors.allow-headers: Authorization" | sudo tee -a /usr/local/elasticse
 
 #### 注册系统服务
 ```sh
-sudo bash -c 'cat << EOF > /tmp/elasticsearch.service
+sudo bash -c 'cat << EOF > /usr/lib/systemd/system/elasticsearch.service
 [Unit]
 Description=Elasticsearch
 Documentation=http://www.elastic.co
