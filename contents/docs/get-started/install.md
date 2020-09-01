@@ -187,7 +187,8 @@ sudo chown -R elasticsearch:elasticsearch /usr/local/elasticsearch-*
 echo "network.host: 0.0.0.0" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
 echo "http.cors.enabled: true" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
 echo "http.cors.allow-origin: \"*\"" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
-echo "http.cors.allow-headers: Authorization" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
+echo "http.cors.allow-credentials: true" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
+echo "http.cors.allow-headers: X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization" | sudo tee -a /usr/local/elasticsearch/config/elasticsearch.yml > /dev/null
 ```
 
 #### 启用用户认证
@@ -471,23 +472,50 @@ wget https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_
 ```sh
 sudo groupadd mysql
 sudo useradd -r -g mysql -s /bin/false mysql
-sudo tar zxvf mysql-*-linux-*.tar.gz -C /usr/local
+sudo tar xvf mysql-*-linux-*.tar.xz -C /usr/local
 sudo ln -s /usr/local/mysql-*-linux-* /usr/local/mysql
+
 cd /usr/local/mysql
 sudo mkdir mysql-files
 sudo chown mysql:mysql mysql-files
 sudo chmod 750 mysql-files
-bin/mysqld --initialize --user=mysql
-bin/mysql_ssl_rsa_setup
-bin/mysqld_safe --user=mysql &
-cp support-files/mysql.server /etc/init.d/mysql
+bin/mysqld -initialize-insecure --user=mysql
+
+```
+
+修改root用户密码
+
+```sh
+mysql -u root --skip-password
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root-password';
+```
+
+新建配置文件
+
+```sh
+sudo bash -c 'cat << EOF > /etc/mysql/my.cnf
+[client]
+port=3306
+socket=/tmp/mysql.sock
+
+[mysqld]
+port=3306
+socket=/tmp/mysql.sock
+key_buffer_size=16M
+max_allowed_packet=128M
+
+[mysqldump]
+quick
+EOF'
+```
+
+
+
+```
+cp /usr/local/mysqlsupport-files/mysql.server /etc/init.d/mysql
 chmod +x /etc/init.d/mysql
 sudo chkconfig --add mysql
-```
 
-
-
-```
 systemctl start mysqld
 ```
 

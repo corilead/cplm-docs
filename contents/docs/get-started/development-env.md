@@ -71,7 +71,7 @@ showTitle: true
 ### 安装和配置IDEA
 
 1. 下载并按照默认配置安装IDEA(https://www.jetbrains.com/idea/download/)
-2. 安装Lombok、Alibaba Coding Guidelines、google-java-format、Maven Helper、EasyYapi插件
+2. 安装Lombok、Alibaba Coding Guidelines、google-java-format、Maven Helper插件
 3. IntelliJ IDEA 设置要求
    1. 选择Build, Execution, Deployment > Build Tools > Maven > Importing，选中Import Maven projects automatically
    2. 选择Build, Execution, Deployment > Compiler，选中Build project automatically
